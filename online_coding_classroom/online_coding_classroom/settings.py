@@ -73,12 +73,34 @@ WSGI_APPLICATION = 'online_coding_classroom.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+### USE BELOW FOR CONNECTING TO A LOCALHOST DATABASE ###
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': 'classroomtest',
     }
 }
+
+ ### USE BELOW CODE FOR CONNECTING TO A HOSTED DATABASE ###
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'your-db-name',
+#         'HOST': '',
+#         'USER': 'JordanStenner',
+#         'PASSWORD': 'INSERTMONGOPASSWORD',
+#         }
+#     }
+# }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
