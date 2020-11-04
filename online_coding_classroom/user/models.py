@@ -8,8 +8,9 @@ ROLE_CHOICES = (
 )
 
 class UserManager(BaseUserManager):
-    
+    """ Class for UserManager - Use this to create users """
     def create_user(self, email, username, role, first_name, last_name, password=None):
+        """ Function for creating standard users """
         if not email:
             raise ValueError("Users must have an email")
         if not username:
@@ -32,12 +33,14 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, username, role, first_name, last_name, password):
+        """ Function for creating a superuser """
         user = self.create_user(
             email=self.normalize_email(email),
             username = username,
             role = role,
             first_name = first_name,
-            last_name = last_name
+            last_name = last_name,
+            password=password,
         )
         user.is_admin = True
         user.is_staff = True
@@ -51,7 +54,7 @@ class User(AbstractBaseUser):
 
     email        = models.EmailField(verbose_name="email", max_length=60, unique=True)
     username     = models.CharField(max_length=30, unique=True)
-    role         = models.CharField(choices=ROLE_CHOICES)
+    role         = models.CharField(max_length=12, choices=ROLE_CHOICES)
     first_name   = models.CharField(max_length=25)
     last_name    = models.CharField(max_length=30)
     # ADD AWARDS ONCE AWARDS COLLECTION IS CREATED
