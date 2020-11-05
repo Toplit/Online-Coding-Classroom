@@ -50,6 +50,7 @@ class UserManager(BaseUserManager):
         return user
     
     def create_student(self, email, username, role, classNum, first_name, last_name, password):
+        """ Function for creating a Student - Adds a Class object to the user """
         user = self.create_user(
             email=self.normalize_email(email),
             username = username,
