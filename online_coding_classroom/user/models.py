@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from classroom_main.models import ComputingClass
 
 ROLE_CHOICES = (
     ('TEACHER', 'Teacher'),
@@ -47,6 +48,19 @@ class UserManager(BaseUserManager):
         user.is_superuser = True
         user.save(using=self._db)
         return user
+    
+    def create_student(self, email, username, role, classNum, first_name, last_name, password):
+        user = self.create_user(
+            email=self.normalize_email(email),
+            username = username,
+            role = role,
+            first_name = first_name,
+            last_name = last_name,
+            password=password,
+        )
+        user.classNum = classNum
+        user.save(using=self._db)
+        return user
 
 
 class User(AbstractBaseUser):
@@ -55,6 +69,7 @@ class User(AbstractBaseUser):
     email        = models.EmailField(verbose_name="email", max_length=60, unique=True)
     username     = models.CharField(max_length=30, unique=True)
     role         = models.CharField(max_length=12, choices=ROLE_CHOICES)
+    classNum     = models.ForeignKey(ComputingClass, on_delete=models.CASCADE, blank=True)
     first_name   = models.CharField(max_length=25)
     last_name    = models.CharField(max_length=30)
     # ADD AWARDS ONCE AWARDS COLLECTION IS CREATED
