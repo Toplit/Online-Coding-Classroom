@@ -70,7 +70,7 @@ class User(AbstractBaseUser):
     email        = models.EmailField(verbose_name="email", max_length=60, unique=True)
     username     = models.CharField(max_length=30, unique=True)
     role         = models.CharField(max_length=12, choices=ROLE_CHOICES)
-    classNum     = models.ForeignKey(ComputingClass, on_delete=models.CASCADE, blank=True)
+    classNum     = models.ForeignKey(ComputingClass, on_delete=models.CASCADE, blank=True, default=None)
     first_name   = models.CharField(max_length=25)
     last_name    = models.CharField(max_length=30)
     # ADD AWARDS ONCE AWARDS COLLECTION IS CREATED

@@ -15,7 +15,8 @@ class ComputingClass(models.Model):
     classNum = models.CharField(max_length=15)
     school = models.ForeignKey(School, on_delete=models.CASCADE)
     # MAY NOT WORK, COULD USE get_user_model()
-    teacher = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    teacher = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=None)
+    # SETTINGS.AUTH_USER_MODEL NOT WORKING
     # You can access all students for a Class object called X using: X.computingclass_set.objects.all()
 
     def __str__(self):
@@ -24,16 +25,19 @@ class ComputingClass(models.Model):
 
 ### LANGUAGE/LESSON MODELS - MAY BE MOVED INTO ITS OWN APP ###
 
+class LanguageManager(models.Manager):
+    """ Manager class for language methods """
+    def get_lesson_count(self, lesson, language):
+        """ Method for returning the lesson count for a particular language """
+        count = lesson.objects.filter(language__languageName__iexact=language.languageName).count()
+        return count
+
 class Language(models.Model):
     """ Model for Programming Languages """
     languageName = models.CharField(max_length=15, unique=True)
     description = models.TextField(max_length=100)
-    lessonCount = models.IntegerField(get_lesson_count(languageName), default=0)
 
-    def get_lesson_count(self):
-        """ Function to get the number of lessons in the database """
-        # May not work? Currently filtering if language object in Lesson is the same as self
-        return Lesson.objects.filter(language=self).count()
+    objects = LanguageManager()
 
 class Lesson(models.Model):
     """ Model for Lessons """
@@ -54,7 +58,7 @@ class LessonHint(models.Model):
 class Progress(models.Model):
     """ Model for a users Progress """
     lesson = models.ForeignKey(Lesson, on_delete=models.PROTECT)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=None)
     completed = models.BooleanField(default=False)
     grade = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
 
