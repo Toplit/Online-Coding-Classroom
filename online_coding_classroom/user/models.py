@@ -33,6 +33,32 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+    def create_academic_user(self, email, username, role, class_name, first_name, last_name, password=None):
+        """ Function for creating academic (Student/Teacher) users """
+        if not email:
+            raise ValueError("Users must have an email")
+        if not username:
+            raise ValueError("Users must have a username")
+        if not role:
+            raise ValueError("Users must have a role")
+        if not class_name:
+            raise ValueError("Users must have a class name")
+        if not first_name:
+            raise ValueError("Users must have a first name")
+        if not last_name:
+            raise ValueError("Users must have a last name")
+        user = self.model(
+            email=self.normalize_email(email),
+            username = username,
+            role = role,
+            class_name = models.ForeignKey(class_name, on_delete=models.CASCADE),
+            first_name = first_name,
+            last_name = last_name
+        )
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
     def create_superuser(self, email, username, role, first_name, last_name, password):
         """ Function for creating a superuser """
         user = self.create_user(
@@ -49,17 +75,17 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
     
-    def create_student(self, email, username, role, classNum, first_name, last_name, password):
+    def create_academic(self, email, username, role, class_name, first_name, last_name, password):
         """ Function for creating a Student - Adds a Class object to the user """
-        user = self.create_user(
+        user = self.create_academic_user(
             email=self.normalize_email(email),
             username = username,
             role = role,
+            class_name = class_name,
             first_name = first_name,
             last_name = last_name,
             password=password,
         )
-        user.classNum = classNum
         user.save(using=self._db)
         return user
 
@@ -67,10 +93,9 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser):
     """ Custom User model """
 
-    email        = models.EmailField(verbose_name="email", max_length=60, unique=True)
+    email        = models.EmailField(verbose_name="email", max_length=60, unique=True) #NEET TO MAKE THIS PRIMARY KEY
     username     = models.CharField(max_length=30, unique=True)
     role         = models.CharField(max_length=12, choices=ROLE_CHOICES)
-    classNum     = models.ForeignKey(ComputingClass, on_delete=models.CASCADE, blank=True, default=None)
     first_name   = models.CharField(max_length=25)
     last_name    = models.CharField(max_length=30)
     # ADD AWARDS ONCE AWARDS COLLECTION IS CREATED

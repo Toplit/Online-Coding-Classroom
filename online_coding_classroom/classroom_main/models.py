@@ -15,7 +15,8 @@ class ComputingClass(models.Model):
     classNum = models.CharField(max_length=15)
     school = models.ForeignKey(School, on_delete=models.CASCADE)
     # MAY NOT WORK, COULD USE get_user_model()
-    teacher = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=None)
+    teacher = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    #teacher = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=None)
     # SETTINGS.AUTH_USER_MODEL NOT WORKING
     # You can access all students for a Class object called X using: X.computingclass_set.objects.all()
 
@@ -58,7 +59,7 @@ class LessonHint(models.Model):
 class Progress(models.Model):
     """ Model for a users Progress """
     lesson = models.ForeignKey(Lesson, on_delete=models.PROTECT)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=None)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     completed = models.BooleanField(default=False)
     grade = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
 
