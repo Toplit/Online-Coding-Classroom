@@ -8,7 +8,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 class School(models.Model):
     """ Model for Schools """
-    school_name = models.TextField(max_length=40, unique=True)
+    school_name = models.CharField(max_length=40, unique=True)
 
 class ComputingClass(models.Model):
     """ Model for Classes """
