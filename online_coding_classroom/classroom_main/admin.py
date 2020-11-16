@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import ComputingClass, School, Lesson, Language, LessonHint, Progress, Awards
+from .models import ComputingClass, School, Progress, Awards
+from lesson.models import Lesson, Language, LessonHint
 
 # Register your models here.
 

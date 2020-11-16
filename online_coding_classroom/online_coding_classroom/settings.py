@@ -41,6 +41,7 @@ AUTHENTICATION_BACKENDS = (
 INSTALLED_APPS = [
     'user',
     'classroom_main',
+    'lesson',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
