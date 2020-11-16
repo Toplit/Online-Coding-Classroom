@@ -3,7 +3,9 @@ from django.shortcuts import render
 
 def home(request):
     """ View for mainsite homepage """
-    context = {}
+    context = {
+        
+    }
     return render(request, 'classroom_main/home.html', context)
     
 def login(request):
