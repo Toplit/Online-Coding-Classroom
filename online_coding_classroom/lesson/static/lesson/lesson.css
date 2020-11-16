@@ -11,3 +11,8 @@ body {
 .navbar-dark {
     background-color: #1c2a43;
 }
+
+.navbar-dark .navbar-nav .nav-link {
+    color: white;
+}
+
