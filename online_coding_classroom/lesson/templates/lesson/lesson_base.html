@@ -1,0 +1,16 @@
+{% extends "lesson/base.html" %}
+{% load static %}
+{% block customlinks %}
+    <link rel="stylesheet" href="{% static 'lesson/lesson.css' %}">
+    <script src="{% static 'lesson/codemirror/lib/codemirror.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'lesson/codemirror/lib/codemirror.css' %}">
+{% endblock customlinks %}
+{% block content %}
+
+
+<div class="container">
+    <textarea id="editor">
+    </textarea>
+</div>
+
+{% endblock %}
