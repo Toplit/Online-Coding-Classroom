@@ -3,6 +3,43 @@
     margin-left: auto;
     margin-top: 10px;
     min-width: 90%;
-    min-height: 50px;
-    background-color: grey;
+    height: 85%;
+    background-color: dimgray;
+}
+
+.container_editor {
+    /* background-color: pink; */
+    width: 40%;
+    height: 90%;
+    float: left;
+}
+
+.container_output {
+    /* background-color: pink; */
+    width: 40%;
+    height: 90%;
+    float: left;
+    
+}
+
+.CodeMirror {
+    margin-top: 5px;
+    min-width: 97%;
+}
+
+#hint-img {
+    max-width: 50px;
+    height: auto;
+    background-color: darkslategray;
+    padding: 2px;
+    
+}
+
+#lesson_title {
+    
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+
+
 }

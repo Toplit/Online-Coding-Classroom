@@ -1,16 +1,40 @@
 {% extends "lesson/base.html" %}
 {% load static %}
 {% block customlinks %}
-    <link rel="stylesheet" href="{% static 'lesson/lesson.css' %}">
+
     <script src="{% static 'lesson/codemirror/lib/codemirror.js' %}"></script>
     <link rel="stylesheet" href="{% static 'lesson/codemirror/lib/codemirror.css' %}">
+    <!--<script src="{% static 'lesson/codemirror/mode/javascript/javascript.js' %}"></script> ADD IN LANGUAGE MODE HERE FOR EACH PAGE -->
+    {% block languagescript %} {% endblock languagescript %}
+    <script src="{% static 'lesson/codemirror/addon/edit/matchbrackets.js' %}"></script>
+    <script src="{% static 'lesson/codemirror/addon/edit/closebrackets.js' %}"></script>
+    <link href="{% static 'lesson/codemirror/theme/dracula.css' %}" rel="stylesheet"/>
+    <script src="{% static 'lesson/editor.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'lesson/lesson.css' %}">
 {% endblock customlinks %}
 {% block content %}
 
 
 <div class="container">
-    <textarea id="editor">
-    </textarea>
+    <div id="top">
+        {% if lesson.lesson_title %}
+        <h1 id="lesson_title">{{ lesson.lesson_title }}</h1>
+        {% else %}
+        <h1 id="lesson_title">Lesson Title Placeholder</h1>
+        {% endif %}
+        <img id="hint-img" src="{% static 'lesson/images/hint.png' %}">
+    </div>
+    <div class="container_editor">  
+        <textarea id="editor_input">
+        let he;<>
+        </textarea>
+    </div>
+    <div class="container_output">
+        <textarea id="editor_output">
+        let test = "output"
+        </textarea>
+    </div>
 </div>
+
 
 {% endblock %}

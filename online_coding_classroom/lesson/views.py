@@ -18,5 +18,5 @@ def select_lesson(request):
 def lesson(request):
     """ View for the lesson itself """
     context = {}
-    return render(request, 'lesson/lesson.html', context)
+    return render(request, 'lesson/lesson_base.html', context)
     
