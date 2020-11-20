@@ -4,22 +4,37 @@
     margin-top: 10px;
     min-width: 90%;
     height: 85%;
-    background-color: dimgray;
+    background-color: rgb(59, 59, 59);
 }
 
 .container_editor {
     /* background-color: pink; */
-    width: 40%;
+    width: 38%;
     height: 90%;
     float: left;
+    margin-left: 1%;
 }
 
 .container_output {
     /* background-color: pink; */
-    width: 40%;
+    width: 38%;
     height: 90%;
     float: left;
     
+}
+
+.container_content {
+    width: 23%;
+    height: 81%;
+    float: left;
+    margin-top: 5px;
+    color: white;
+    
+ 
+}
+
+#lesson_description {
+    color: #05da05;
 }
 
 .CodeMirror {
@@ -30,9 +45,13 @@
 #hint-img {
     max-width: 50px;
     height: auto;
-    background-color: darkslategray;
+    background-color: #969696;
     padding: 2px;
-    
+    margin-left: 1%;
+}
+
+#hint-img:hover {
+    background-color: #7a7979;
 }
 
 #lesson_title {
@@ -40,6 +59,5 @@
     text-align: center;
     vertical-align: middle;
     color: white;
-
-
 }
+

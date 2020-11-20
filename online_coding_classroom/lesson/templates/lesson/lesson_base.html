@@ -5,7 +5,18 @@
     <script src="{% static 'lesson/codemirror/lib/codemirror.js' %}"></script>
     <link rel="stylesheet" href="{% static 'lesson/codemirror/lib/codemirror.css' %}">
     <!--<script src="{% static 'lesson/codemirror/mode/javascript/javascript.js' %}"></script> ADD IN LANGUAGE MODE HERE FOR EACH PAGE -->
-    {% block languagescript %} {% endblock languagescript %}
+    {% if lesson.language.language_name == "javascript"%}
+        <script src="{% static 'lesson/codemirror/mode/javascript/javascript.js' %}"></script>
+    {% endif %}
+    {% if lesson.language.language_name == "python"%}
+        <script src="{% static 'lesson/codemirror/mode/python/python.js' %}"></script>
+    {% endif %}
+    {% if lesson.language.language_name == "html_and_css"%}
+        <script src="{% static 'lesson/codemirror/mode/htmlmixed/htmlmixed.js' %}"></script>
+    {% endif %}
+    {% if lesson.language.language_name is None %}
+        <script src="{% static 'lesson/codemirror/mode/javascript/javascript.js' %}"></script>
+    {% endif %}
     <script src="{% static 'lesson/codemirror/addon/edit/matchbrackets.js' %}"></script>
     <script src="{% static 'lesson/codemirror/addon/edit/closebrackets.js' %}"></script>
     <link href="{% static 'lesson/codemirror/theme/dracula.css' %}" rel="stylesheet"/>
@@ -22,7 +33,7 @@
         {% else %}
         <h1 id="lesson_title">Lesson Title Placeholder</h1>
         {% endif %}
-        <img id="hint-img" src="{% static 'lesson/images/hint.png' %}">
+        <a href="#hint_modal" role="button" data-toggle="modal"><img id="hint-img" src="{% static 'lesson/images/hint.png' %}"></a>
     </div>
     <div class="container_editor">  
         <textarea id="editor_input">
@@ -34,7 +45,46 @@
         let test = "output"
         </textarea>
     </div>
+    <div class="container_content">
+        <h4>Lesson Objective:</h4>
+        <p id="lesson_description">
+            {% if lesson.lesson_description %}
+            {{ lesson.lesson_description }}
+            {% else %}
+            Lesson Description Placeholder
+            {% endif %}
+        </p>
+    </div>
 </div>
 
+<!-- Hint Modal -->
+<div class="modal fade" id="hint_modal" tabindex="-1" role="dialog" aria-labelledby="hint_modal_label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="hint_modal_label">
+            {% if lessonHint.hint_title %}
+                {{ lessonHint.hint_title }}
+            {% else %}
+                Lesson Hint Placeholder
+            {% endif %}
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {% if lessonHint.hint_description %}
+            {{ lessonHint.hint_description }}
+        {% else %}
+            Hint Description Placeholder
+        {% endif %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

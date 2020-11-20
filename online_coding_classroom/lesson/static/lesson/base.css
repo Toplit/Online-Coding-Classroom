@@ -13,12 +13,18 @@ body {
     margin-right: 25px;
 }
 
-.navbar-dark {
-    background-color: #1c2a43;
+.navbar-custom {
+    background-color: #162031;
 }
 
-.navbar-dark .navbar-nav .nav-link {
+.navbar-custom .navbar-nav .nav-link {
     color: white;
+}
+
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:focus .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+    color: #cfcbcb;
 }
 
 .nav-left > li{
