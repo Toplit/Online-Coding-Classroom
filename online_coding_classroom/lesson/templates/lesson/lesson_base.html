@@ -30,7 +30,9 @@
 
  
         $("#run_code").click(function(){
-            var untrusted_code = $("#editor_input").val();
+            //var untrusted_code = $("#editor_input").val();
+            var editor_input = $(".CodeMirror")[0].CodeMirror;
+            var untrusted_code = editor_input.getValue();
             console.log("Button works");
 
             $.ajax({
@@ -40,9 +42,9 @@
                 },
                 dataType: 'json',
                 success: function (data) {
-                    var editor = $(".CodeMirror")[1].CodeMirror;
+                    var editor_output = $(".CodeMirror")[1].CodeMirror;
 
-                    editor.setValue(data["response"]);
+                    editor_output.setValue(data["output"]);
                 }
             });
         });
@@ -64,7 +66,19 @@
     </div>
     <div class="container_editor">  
         <textarea id="editor_input" name="editor_input">
-        let he;<>
+            function bubble(){
+                let arr = [4,3,2,1];
+                for(let i=0; i < arr.length; i++){
+                    for(let j=0; j < arr.length; j++){
+                        if(arr[j] > arr[j+1]){
+                            let tmp = arr[j];
+                            arr[j] = arr[j+1];
+                            arr[j+1] = tmp;
+                        }
+                    }
+                }
+                return arr;
+            }
         </textarea>
     </div>
     <div class="container_output">

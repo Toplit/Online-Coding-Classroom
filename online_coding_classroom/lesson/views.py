@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from node_vm2 import VM, NodeVM
 
 
 def select_language(request):
@@ -30,7 +31,73 @@ def lesson(request):
     return render(request, 'lesson/lesson_base.html', context)
     
 def compile_code(request):
-    print("Working")
+    print("Working\n")
     untrustedCode = request.GET.get('untrustedCode')
-    data = {'response': f'Input code is: {untrustedCode}'}
+
+    js = "exports.bubbleFunc = () => { return new Promise(resolve => { setTimeout(() => { resolve("+untrustedCode+")}, 3000);});};"
+
+    with NodeVM.code(js) as module:
+        result = module.call_member("bubbleFunc")
+
+        print(result)
+
+        stringResult = ' '.join(map(str, result))
+        data = {'output': stringResult}
     return JsonResponse(data)
+
+    ###
+    #  node_vm2 code examples 
+    ###
+
+    ### For JavaScript without functions - below:
+            #     let arr = [4,3,2,1];
+            # for(let i=0; i < arr.length; i++){
+            #     for(let j=0; j < arr.length; j++){
+            #         if(arr[j] > arr[j+1]){
+            #             let tmp = arr[j];
+            #             arr[j] = arr[j+1];
+            #             arr[j+1] = tmp;
+            #         }
+            #     }
+            # }
+
+    ### Use this Python:
+            # with VM() as vm:
+            #     vm.run(untrustedCode)
+            #     print(vm.run("arr"))
+            #     result = vm.run("arr")
+            #     stringResult = ' '.join(map(str, result))
+            #     data = {'output': stringResult}
+            # return JsonResponse(data)
+
+
+    ### For normal JavaScript functions - below:
+            #     function bubble(){
+            #     let arr = [4,3,2,1];
+            #     for(let i=0; i < arr.length; i++){
+            #         for(let j=0; j < arr.length; j++){
+            #             if(arr[j] > arr[j+1]){
+            #                 let tmp = arr[j];
+            #                 arr[j] = arr[j+1];
+            #                 arr[j+1] = tmp;
+            #             }
+            #         }
+            #     }
+            #     return arr;
+            # }
+
+    ### Use this Python - Set the function as an export and its returned value is output:
+            # def compile_code(request):
+            # print("Working\n")
+            # untrustedCode = request.GET.get('untrustedCode')
+
+            # js = "exports.bubbleFunc = " + untrustedCode
+
+            # with NodeVM.code(js) as module:
+            #     result = module.call_member("bubbleFunc")
+
+            #     print(result)
+
+            #     stringResult = ' '.join(map(str, result))
+            #     data = {'output': stringResult}
+            # return JsonResponse(data)
