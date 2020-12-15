@@ -14,8 +14,9 @@ $(function(){
         lineNumbers: true,
         matchBrackets: true,
         autoCloseBrackets: true,
-        readOnly: true,
+        //readOnly: true,
     });
     output.setSize("90%", "90%");
 
+    
 });

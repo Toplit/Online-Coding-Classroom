@@ -33,6 +33,11 @@
  
 }
 
+.container_form {
+    width: 100%;
+    height: 100%;
+}
+
 #lesson_description {
     color: #05da05;
 }
