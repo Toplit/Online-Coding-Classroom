@@ -16,6 +16,7 @@
     {% endif %}
     {% if lesson.language.language_name is None %}
         <script src="{% static 'lesson/codemirror/mode/javascript/javascript.js' %}"></script>
+        <script src="{% static 'lesson/codemirror/mode/markdown/markdown.js' %}"></script>
     {% endif %}
     <script src="{% static 'lesson/codemirror/addon/edit/matchbrackets.js' %}"></script>
     <script src="{% static 'lesson/codemirror/addon/edit/closebrackets.js' %}"></script>
@@ -27,10 +28,9 @@
 
     <script>
     $(function(){
+        $(".alert").alert();
 
- 
         $("#run_code").click(function(){
-            //var untrusted_code = $("#editor_input").val();
             var editor_input = $(".CodeMirror")[0].CodeMirror;
             var untrusted_code = editor_input.getValue();
             console.log("Button works");
@@ -42,12 +42,28 @@
                 },
                 dataType: 'json',
                 success: function (data) {
+                    let result = data["output"];
                     var editor_output = $(".CodeMirror")[1].CodeMirror;
-
-                    editor_output.setValue(data["output"]);
+                    editor_output.setValue(result);
+                    check_result(result);
                 }
             });
         });
+
+        function check_result(result){
+            switch(result){
+                case "Hello World!":
+                    $("#success_modal").modal("show");
+                    $("#next_lesson").show();//Remove if using modal
+                    console.log("Correct output");
+                    break;
+                case "Hello World":
+                    console.log("Double-check what your variable is storing");
+                    break;
+                default:
+                    console.log("Output incorrect");
+            }
+        }
     });
     </script>
 {% endblock customlinks %}
@@ -66,19 +82,11 @@
     </div>
     <div class="container_editor">  
         <textarea id="editor_input" name="editor_input">
-            function bubble(){
-                let arr = [4,3,2,1];
-                for(let i=0; i < arr.length; i++){
-                    for(let j=0; j < arr.length; j++){
-                        if(arr[j] > arr[j+1]){
-                            let tmp = arr[j];
-                            arr[j] = arr[j+1];
-                            arr[j+1] = tmp;
-                        }
-                    }
-                }
-                return arr;
-            }
+function variable_exercise(){
+    //Write variable here
+
+    //Return the variable here
+}
         </textarea>
     </div>
     <div class="container_output">
@@ -95,7 +103,8 @@
             {% endif %}
         </p>
     </div>
-    <button id="run_code">Run Code</button>
+    <button id="run_code" class="btn btn-secondary">Run Code</button>
+    <button id="next_lesson" class="btn btn-success">Next Lesson</button>
 </div>
 
 <!-- Hint Modal -->
@@ -128,4 +137,21 @@
   </div>
 </div>
 
+<!-- Success Modal -->
+<div id="success_modal" class="modal fade" data-backdrop='static' data-keyboard='false'>
+	<div class="modal-dialog modal-success">
+		<div class="modal-content">
+			<div class="modal-header justify-content-center">
+				<div class="icon">
+					<i class="material-icons">&#xE876;</i>
+				</div>
+			</div>
+			<div class="modal-body text-center">
+				<h4>Lesson Complete!</h4>	
+				<p>Move on to the next lesson!</p>
+				<button class="btn btn-success"><span>Next Lesson</span> <i class="material-icons">&#xE5C8;</i></button><!-- This to link to next lesson -->
+			</div>
+		</div>
+	</div>
+</div>     
 {% endblock %}

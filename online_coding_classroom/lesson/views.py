@@ -28,21 +28,36 @@ def lesson(request):
     # Compile the inputCode
     # Store result in context
     context = {}
-    return render(request, 'lesson/lesson_base.html', context)
-    
-def compile_code(request):
-    print("Working\n")
+    return render(request, 'lesson/lesson_base.html', context) 
+   
+def compile_basic_code(request):
+    """ Function for compiling basic code """
+    print("Compiling Code\n")
+
     untrustedCode = request.GET.get('untrustedCode')
 
-    js = "exports.bubbleFunc = () => { return new Promise(resolve => { setTimeout(() => { resolve("+untrustedCode+")}, 3000);});};"
+    js = "exports.func = " + untrustedCode
 
     with NodeVM.code(js) as module:
-        result = module.call_member("bubbleFunc")
+        result = module.call_member("func")
 
-        print(result)
+        #stringResult = ' '.join(map(str, result))
+        data = {'output': result}
+    return JsonResponse(data)
+
+def compile_array_code(request):
+    """ Function for compiling code that returns an array """
+    print("Compiling Code\n")
+
+    untrustedCode = request.GET.get('untrustedCode')
+
+    js = "exports.func = " + untrustedCode
+
+    with NodeVM.code(js) as module:
+        result = module.call_member("func")
 
         stringResult = ' '.join(map(str, result))
-        data = {'output': stringResult}
+        data = {'output': result}
     return JsonResponse(data)
 
     ###
@@ -58,7 +73,7 @@ def compile_code(request):
             #             arr[j] = arr[j+1];
             #             arr[j+1] = tmp;
             #         }
-            #     }
+            #     } 
             # }
 
     ### Use this Python:
