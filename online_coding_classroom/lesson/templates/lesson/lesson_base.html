@@ -43,26 +43,40 @@
                 dataType: 'json',
                 success: function (data) {
                     let result = data["output"];
+                    var msg = check_result(result);
+                    var full_output = result + "\n\n" + msg;
                     var editor_output = $(".CodeMirror")[1].CodeMirror;
-                    editor_output.setValue(result);
-                    check_result(result);
+                    editor_output.setValue(full_output);
                 }
             });
         });
 
         function check_result(result){
-            switch(result){
-                case "Hello World!":
-                    $("#success_modal").modal("show");
-                    $("#next_lesson").show();//Remove if using modal
-                    console.log("Correct output");
-                    break;
-                case "Hello World":
-                    console.log("Double-check what your variable is storing");
-                    break;
-                default:
-                    console.log("Output incorrect");
+            var msg;
+            if(typeof result == "number"){
+                msg = "### Incorrect output: You have output a number instead of string!";
             }
+            else if(typeof result == "undeclaredVariable"){
+                msg = "### Incorrect output: Something has gone wrong, the output is undefined!";
+            }
+            else if(typeof result == "object"){
+                msg = "### Incorrect output: Something has gone wrong, the output is null!";
+            }
+            else{
+                switch(result){
+                    case "Hello World!":
+                        $("#success_modal").modal("show");
+                        $("#next_lesson").show();//Remove if using modal
+                        console.log("Correct output");
+                        break;
+                    case "Hello World":
+                        msg = "### Incorrect output: Double-check what your variable is storing\n\n### Remember, you should output the text 'Hello World!'";
+                        break;
+                    default:
+                        msg ="### Incorrect output";
+                }
+            }
+            return msg;
         }
     });
     </script>
