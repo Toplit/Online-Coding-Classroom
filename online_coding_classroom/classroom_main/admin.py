@@ -6,8 +6,5 @@ from lesson.models import Lesson, Language, LessonHint
 
 admin.site.register(ComputingClass)
 admin.site.register(School)
-admin.site.register(Lesson)
-admin.site.register(Language)
-admin.site.register(LessonHint)
 admin.site.register(Progress)
 admin.site.register(Awards)

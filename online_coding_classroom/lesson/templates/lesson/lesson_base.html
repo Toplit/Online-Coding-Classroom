@@ -16,17 +16,100 @@
     {% endif %}
     {% if lesson.language.language_name is None %}
         <script src="{% static 'lesson/codemirror/mode/javascript/javascript.js' %}"></script>
+        <script src="{% static 'lesson/codemirror/mode/markdown/markdown.js' %}"></script>
     {% endif %}
     <script src="{% static 'lesson/codemirror/addon/edit/matchbrackets.js' %}"></script>
     <script src="{% static 'lesson/codemirror/addon/edit/closebrackets.js' %}"></script>
     <link href="{% static 'lesson/codemirror/theme/dracula.css' %}" rel="stylesheet"/>
     <script src="{% static 'lesson/editor.js' %}"></script>
+    <!--<script src="{% static 'lesson/run_code.js' %}"></script>-->
     <link rel="stylesheet" href="{% static 'lesson/lesson.css' %}">
+
+
+    <script>
+    $(function(){
+        $(".alert").alert();
+
+        $("#run_code").click(function(){
+            var editor_input = $(".CodeMirror")[0].CodeMirror;
+            var untrusted_code = editor_input.getValue();
+            console.log("Button works");
+
+            $.ajax({
+                url: '{% url 'get_code' %}',
+                data: {
+                    'untrustedCode': untrusted_code
+                },
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    let result = data["output"];
+                    var msg = check_result(result, untrusted_code);
+                    var full_output = result + "\n\n" + msg;
+                    var editor_output = $(".CodeMirror")[1].CodeMirror;
+                    editor_output.setValue(full_output);
+                }
+            });
+        });
+
+        function check_result(result, inputCode){
+            var msg;
+            if(result == "Error with the input code. Take another look at your code."){
+                msg = "";
+            }
+            else{
+                if(typeof result == "boolean"){
+                    msg = "### Incorrect output: You have output a boolean instead of a number!";
+                }
+                else if(typeof result == "string"){
+                    msg = "### Incorrect output: You have output a string instead of a number!";;
+                }
+                else if(typeof result == "undeclaredVariable"){
+                    msg = "### Incorrect output: Something has gone wrong, the output is undefined!";
+                }
+                else if(typeof result == "object"){
+                    msg = "### Incorrect output: Something has gone wrong, the output is null!";
+                }
+                else{
+                    //Removes comments including the word function
+                    var testingCode = inputCode.replace("//Call function here", "");
+                    testingCode = inputCode.replace("//Write function here", "");
+
+                    if(inputCode.includes("function sum(") == false){
+                        msg = "### Incorrect input code: You haven't used any loops! You must include a for loop.";
+                    }
+                    else if(inputCode.includes("result = 20") == true){
+                        msg = "### Incorrect input code: You cannot just make result equal 20! You must calulate the result using a function.";
+                    }
+                    else if(inputCode.includes("return 20") == true){
+                        msg = "### Incorrect input code: You cannot just return 20! You must return the result variable.";
+                    }
+                    else if(inputCode.includes("return result") == false){
+                        msg = "### Incorrect input code: You must return the result variable!";
+                    }
+                    else{
+                        switch(result){
+                            case 20:
+                                $("#success_modal").modal("show");
+                                $("#next_lesson").show();//Remove if using modal
+                                msg = "Correct output: Lesson Complete. Well Done!";
+                                break;
+                            default:
+                                msg ="### Incorrect output: Result should equal 20";
+                        }
+                    }
+                }
+            }
+            return msg;
+        }
+    });
+    </script>
 {% endblock customlinks %}
 {% block content %}
 
 
 <div class="container">
+    {% csrf_token %}
     <div id="top">
         {% if lesson.lesson_title %}
         <h1 id="lesson_title">{{ lesson.lesson_title }}</h1>
@@ -36,13 +119,23 @@
         <a href="#hint_modal" role="button" data-toggle="modal"><img id="hint-img" src="{% static 'lesson/images/hint.png' %}"></a>
     </div>
     <div class="container_editor">  
-        <textarea id="editor_input">
-        let he;<>
+        <textarea id="editor_input" name="editor_input">
+function functions_exercise(){
+    var result;
+    var num1 = 15;
+    var num2 = 5;
+
+    //Call function here
+
+
+    return result;
+}
+
+//Write function here
         </textarea>
     </div>
     <div class="container_output">
         <textarea id="editor_output">
-        let test = "output"
         </textarea>
     </div>
     <div class="container_content">
@@ -55,6 +148,8 @@
             {% endif %}
         </p>
     </div>
+    <button id="run_code" class="btn btn-secondary">Run Code</button>
+    <button id="next_lesson" class="btn btn-success">Next Lesson</button>
 </div>
 
 <!-- Hint Modal -->
@@ -87,4 +182,21 @@
   </div>
 </div>
 
+<!-- Success Modal -->
+<div id="success_modal" class="modal fade" data-backdrop='static' data-keyboard='false'>
+	<div class="modal-dialog modal-success">
+		<div class="modal-content">
+			<div class="modal-header justify-content-center">
+				<div class="icon">
+					<i class="material-icons">&#xE876;</i>
+				</div>
+			</div>
+			<div class="modal-body text-center">
+				<h4>Lesson Complete!</h4>	
+				<p>Move on to the next lesson!</p>
+				<button class="btn btn-success"><span>Next Lesson</span> <i class="material-icons">&#xE5C8;</i></button><!-- This to link to next lesson -->
+			</div>
+		</div>
+	</div>
+</div>     
 {% endblock %}

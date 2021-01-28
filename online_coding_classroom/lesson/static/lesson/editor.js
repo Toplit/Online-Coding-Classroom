@@ -9,7 +9,7 @@ $(function(){
     editor.setSize("90%", "90%");
 
     var output = CodeMirror.fromTextArea(document.getElementById('editor_output'), {
-        mode: "javascript",
+         mode: "markdown",
         theme: "dracula",
         lineNumbers: true,
         matchBrackets: true,
@@ -18,4 +18,5 @@ $(function(){
     });
     output.setSize("90%", "90%");
 
+    
 });
