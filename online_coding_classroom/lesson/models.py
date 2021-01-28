@@ -14,20 +14,23 @@ class Language(models.Model):
     language_name = models.CharField(max_length=15, unique=True)
     description = models.TextField(max_length=100)
 
-    objects = LanguageManager()
+    objects = LanguageManager() ## remove this
 
     def __str__(self):
         return self.language_name
 
 class Lesson(models.Model):
     """ Model for Lessons """
-    lesson_title = models.CharField(max_length=20)
+    lesson_title = models.CharField(max_length=50)
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
-    lesson_description = models.TextField(max_length=100)
+    lesson_description = models.TextField()
+    lesson_content = models.TextField()
     # Will have to change this data type to allow for formatting
     # Perhaps have all code on a txt file and have these files linked here
     # Maybe JSONField?
-    lesson_code = models.TextField(max_length=300)
+    lesson_code = models.TextField()
+    check_result = models.TextField()
+    compile_url = models.CharField(max_length=50)
 
     def __str__(self):
         return self.lesson_title

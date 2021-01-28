@@ -42,8 +42,9 @@
                 },
                 dataType: 'json',
                 success: function (data) {
+                    console.log(data);
                     let result = data["output"];
-                    var msg = check_result(result);
+                    var msg = check_result(result, untrusted_code);
                     var full_output = result + "\n\n" + msg;
                     var editor_output = $(".CodeMirror")[1].CodeMirror;
                     editor_output.setValue(full_output);
@@ -51,29 +52,52 @@
             });
         });
 
-        function check_result(result){
+        function check_result(result, inputCode){
             var msg;
-            if(typeof result == "number"){
-                msg = "### Incorrect output: You have output a number instead of string!";
-            }
-            else if(typeof result == "undeclaredVariable"){
-                msg = "### Incorrect output: Something has gone wrong, the output is undefined!";
-            }
-            else if(typeof result == "object"){
-                msg = "### Incorrect output: Something has gone wrong, the output is null!";
+            if(result == "Error with the input code. Take another look at your code."){
+                msg = "";
             }
             else{
-                switch(result){
-                    case "Hello World!":
-                        $("#success_modal").modal("show");
-                        $("#next_lesson").show();//Remove if using modal
-                        console.log("Correct output");
-                        break;
-                    case "Hello World":
-                        msg = "### Incorrect output: Double-check what your variable is storing\n\n### Remember, you should output the text 'Hello World!'";
-                        break;
-                    default:
-                        msg ="### Incorrect output";
+                if(typeof result == "boolean"){
+                    msg = "### Incorrect output: You have output a boolean instead of a number!";
+                }
+                else if(typeof result == "string"){
+                    msg = "### Incorrect output: You have output a string instead of a number!";;
+                }
+                else if(typeof result == "undeclaredVariable"){
+                    msg = "### Incorrect output: Something has gone wrong, the output is undefined!";
+                }
+                else if(typeof result == "object"){
+                    msg = "### Incorrect output: Something has gone wrong, the output is null!";
+                }
+                else{
+                    //Removes comments including the word function
+                    var testingCode = inputCode.replace("//Call function here", "");
+                    testingCode = inputCode.replace("//Write function here", "");
+
+                    if(inputCode.includes("function sum(") == false){
+                        msg = "### Incorrect input code: You haven't used any loops! You must include a for loop.";
+                    }
+                    else if(inputCode.includes("result = 20") == true){
+                        msg = "### Incorrect input code: You cannot just make result equal 20! You must calulate the result using a function.";
+                    }
+                    else if(inputCode.includes("return 20") == true){
+                        msg = "### Incorrect input code: You cannot just return 20! You must return the result variable.";
+                    }
+                    else if(inputCode.includes("return result") == false){
+                        msg = "### Incorrect input code: You must return the result variable!";
+                    }
+                    else{
+                        switch(result){
+                            case 20:
+                                $("#success_modal").modal("show");
+                                $("#next_lesson").show();//Remove if using modal
+                                msg = "Correct output: Lesson Complete. Well Done!";
+                                break;
+                            default:
+                                msg ="### Incorrect output: Result should equal 20";
+                        }
+                    }
                 }
             }
             return msg;
@@ -96,11 +120,18 @@
     </div>
     <div class="container_editor">  
         <textarea id="editor_input" name="editor_input">
-function variable_exercise(){
-    //Write variable here
+function functions_exercise(){
+    var result;
+    var num1 = 15;
+    var num2 = 5;
 
-    //Return the variable here
+    //Call function here
+
+
+    return result;
 }
+
+//Write function here
         </textarea>
     </div>
     <div class="container_output">

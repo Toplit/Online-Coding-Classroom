@@ -89,7 +89,7 @@ WSGI_APPLICATION = 'online_coding_classroom.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'classroomtest',
+        'NAME': 'OnlineCodeClassroom',
         'ENFORCE_SCHEMA': False,
     }
 }

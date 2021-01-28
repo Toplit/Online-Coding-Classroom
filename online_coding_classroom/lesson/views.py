@@ -38,11 +38,13 @@ def compile_basic_code(request):
 
     js = "exports.func = " + untrustedCode
 
-    with NodeVM.code(js) as module:
-        result = module.call_member("func")
+    try:
+        with NodeVM.code(js) as module:
+            result = module.call_member("func")
 
-        #stringResult = ' '.join(map(str, result))
-        data = {'output': result}
+            data = {'output': result}
+    except:
+        data = {'output': "Error with the input code. Take another look at your code."}
     return JsonResponse(data)
 
 def compile_array_code(request):
