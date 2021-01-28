@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from node_vm2 import VM, NodeVM
+from lesson.models import Lesson
+from django.db.models import Q
 
 
 def select_language(request):
@@ -17,9 +19,12 @@ def select_lesson(request):
 
     return render(request, 'lesson/select_lesson.html', context)
 
-def lesson(request):
+def lesson(request, languageTitle, lessonTitle):
     """ View for the lesson itself """
+    context = {}
+    selectedLesson = Lesson.objects.filter(language__language_name__iexact=languageTitle).filter(lesson_title__iexact=lessonTitle)
 
+    context['lesson'] = selectedLesson[0]
 
 
     # input_code = request.POST.get("editor_input")
@@ -27,7 +32,6 @@ def lesson(request):
     # output_code = ""
     # Compile the inputCode
     # Store result in context
-    context = {}
     return render(request, 'lesson/lesson_base.html', context) 
    
 def compile_basic_code(request):

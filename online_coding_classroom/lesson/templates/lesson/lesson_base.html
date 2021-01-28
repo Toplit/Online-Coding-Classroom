@@ -51,57 +51,9 @@
                 }
             });
         });
-
-        function check_result(result, inputCode){
-            var msg;
-            if(result == "Error with the input code. Take another look at your code."){
-                msg = "";
-            }
-            else{
-                if(typeof result == "boolean"){
-                    msg = "### Incorrect output: You have output a boolean instead of a number!";
-                }
-                else if(typeof result == "string"){
-                    msg = "### Incorrect output: You have output a string instead of a number!";;
-                }
-                else if(typeof result == "undeclaredVariable"){
-                    msg = "### Incorrect output: Something has gone wrong, the output is undefined!";
-                }
-                else if(typeof result == "object"){
-                    msg = "### Incorrect output: Something has gone wrong, the output is null!";
-                }
-                else{
-                    //Removes comments including the word function
-                    var testingCode = inputCode.replace("//Call function here", "");
-                    testingCode = inputCode.replace("//Write function here", "");
-
-                    if(inputCode.includes("function sum(") == false){
-                        msg = "### Incorrect input code: You haven't used any loops! You must include a for loop.";
-                    }
-                    else if(inputCode.includes("result = 20") == true){
-                        msg = "### Incorrect input code: You cannot just make result equal 20! You must calulate the result using a function.";
-                    }
-                    else if(inputCode.includes("return 20") == true){
-                        msg = "### Incorrect input code: You cannot just return 20! You must return the result variable.";
-                    }
-                    else if(inputCode.includes("return result") == false){
-                        msg = "### Incorrect input code: You must return the result variable!";
-                    }
-                    else{
-                        switch(result){
-                            case 20:
-                                $("#success_modal").modal("show");
-                                $("#next_lesson").show();//Remove if using modal
-                                msg = "Correct output: Lesson Complete. Well Done!";
-                                break;
-                            default:
-                                msg ="### Incorrect output: Result should equal 20";
-                        }
-                    }
-                }
-            }
-            return msg;
-        }
+        {% autoescape off %}
+        {{lesson.check_result}}
+        {% endautoescape %}
     });
     </script>
 {% endblock customlinks %}
@@ -120,18 +72,7 @@
     </div>
     <div class="container_editor">  
         <textarea id="editor_input" name="editor_input">
-function functions_exercise(){
-    var result;
-    var num1 = 15;
-    var num2 = 5;
-
-    //Call function here
-
-
-    return result;
-}
-
-//Write function here
+        {{lesson.lesson_code}}
         </textarea>
     </div>
     <div class="container_output">
