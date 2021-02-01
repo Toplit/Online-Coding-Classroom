@@ -5,16 +5,16 @@
     <script src="{% static 'lesson/codemirror/lib/codemirror.js' %}"></script>
     <link rel="stylesheet" href="{% static 'lesson/codemirror/lib/codemirror.css' %}">
     <!--<script src="{% static 'lesson/codemirror/mode/javascript/javascript.js' %}"></script> ADD IN LANGUAGE MODE HERE FOR EACH PAGE -->
-    {% if lesson.language.language_name == "javascript"%}
+    {% if language == "javascript"%}
         <script src="{% static 'lesson/codemirror/mode/javascript/javascript.js' %}"></script>
     {% endif %}
-    {% if lesson.language.language_name == "python"%}
+    {% if language == "python"%}
         <script src="{% static 'lesson/codemirror/mode/python/python.js' %}"></script>
     {% endif %}
-    {% if lesson.language.language_name == "html_and_css"%}
+    {% if language == "html_and_css"%}
         <script src="{% static 'lesson/codemirror/mode/htmlmixed/htmlmixed.js' %}"></script>
     {% endif %}
-    {% if lesson.language.language_name is None %}
+    {% if language is None %}
         <script src="{% static 'lesson/codemirror/mode/javascript/javascript.js' %}"></script>
         <script src="{% static 'lesson/codemirror/mode/markdown/markdown.js' %}"></script>
     {% endif %}
@@ -135,7 +135,8 @@
 			<div class="modal-body text-center">
 				<h4>Lesson Complete!</h4>	
 				<p>Move on to the next lesson!</p>
-				<button class="btn btn-success"><span>Next Lesson</span> <i class="material-icons">&#xE5C8;</i></button><!-- This to link to next lesson -->
+				<a href="" class="btn btn-success"><span>Next Lesson</span> <i class="material-icons">&#xE5C8;</i></a><!-- This to link to next lesson -->
+
 			</div>
 		</div>
 	</div>

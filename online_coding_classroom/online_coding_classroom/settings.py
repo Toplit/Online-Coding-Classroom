@@ -86,26 +86,29 @@ WSGI_APPLICATION = 'online_coding_classroom.wsgi.application'
 
 ### USE BELOW FOR CONNECTING TO A LOCALHOST DATABASE ###
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'OnlineCodeClassroom',
-        'ENFORCE_SCHEMA': False,
-    }
-}
-
- ### USE BELOW CODE FOR CONNECTING TO A HOSTED DATABASE ###
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'djongo',
-#         'NAME': 'your-db-name',
-#         'HOST': '',
-#         'USER': 'JordanStenner',
-#         'PASSWORD': 'INSERTMONGOPASSWORD',
-#         }
+#         'NAME': 'OnlineCodeClassroom',
+#         'ENFORCE_SCHEMA': False,
 #     }
 # }
+
+ ### USE BELOW CODE FOR CONNECTING TO A HOSTED DATABASE ###
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'djongo',
+        'CLIENT': {
+            'name': 'OnlineCodingClassroom',
+            'host': 'mongodb+srv://JordanStenner:OCC2021@onlinecodingclassroom.sdmav.mongodb.net/OnlineCodingClassroom?retryWrites=true&w=majority',
+            'username': 'JordanStenner',
+            'password': 'OCC2021',
+            'authMechanism': 'SCRAM-SHA-1'
+            }
+        }
+    }
+
 
 # DATABASES = {
 #     'default': {

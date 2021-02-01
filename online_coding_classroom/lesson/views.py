@@ -23,8 +23,13 @@ def lesson(request, languageTitle, lessonTitle):
     """ View for the lesson itself """
     context = {}
     selectedLesson = Lesson.objects.filter(language__language_name__iexact=languageTitle).filter(lesson_title__iexact=lessonTitle)
+    lessonNum = selectedLesson[0].lesson_number
+    lessonNum += 1
+    nextLesson = Lesson.objects.filter(lesson_number__exact=lessonNum)
 
     context['lesson'] = selectedLesson[0]
+    context['language'] = languageTitle.lower()
+    context['nextLesson'] = nextLesson[0].lesson_title
 
 
     # input_code = request.POST.get("editor_input")

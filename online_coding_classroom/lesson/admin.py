@@ -13,7 +13,7 @@ class LanguageAdmin(admin.ModelAdmin):
 
 class LessonAdmin(admin.ModelAdmin):
     """ Model for the Admin page """
-    list_display = ('lesson_title', 'language', 'lesson_description')
+    list_display = ('lesson_number', 'lesson_title', 'language', 'lesson_description')
     #readonly_fields = ('language', 'lesson_title', 'lesson_description')
     search_fields = ('language', 'lesson_title')
 

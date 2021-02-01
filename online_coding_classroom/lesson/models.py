@@ -31,6 +31,7 @@ class Lesson(models.Model):
     lesson_code = models.TextField()
     check_result = models.TextField()
     compile_url = models.CharField(max_length=50)
+    lesson_number = models.IntegerField()
 
     def __str__(self):
         return self.lesson_title

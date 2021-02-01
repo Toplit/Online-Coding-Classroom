@@ -1,0 +1,40 @@
+html {
+    height: 100%;
+}
+body {
+    background-color: #2c3e50;
+    font-family: Helvetica, sans-serif, Arial;
+    height: 100%;
+}
+
+#logo-img{
+    max-width: 175px;
+    height: auto;
+    margin-right: 25px;
+}
+
+.navbar-custom {
+    background-color: #162031;
+}
+
+.navbar-custom .navbar-nav .nav-link {
+    color: white;
+}
+
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:focus .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+    color: #cfcbcb;
+}
+
+.nav-left > li{
+    margin-left: 50px;
+}
+.nav-right > li{
+    margin-right: 100px;
+}
+
+.error {
+    color: white;
+    text-align: center;
+}
