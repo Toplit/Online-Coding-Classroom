@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from user.forms import AvgRegisterForm, AcademicRegisterForm
 from django.contrib import messages
-from user.models import UserManager, User
 from django.contrib.auth import get_user_model
 # from django.http import HttpResponse
 
@@ -27,7 +26,6 @@ def create_account(request, role):
             form = AvgRegisterForm(request.POST)
 
         if(form.is_valid()):
-            #form.save()
             createNewUser(form)
             username = form.cleaned_data.get('username')
             messages.success(request, f"Account has been created for {username}!")

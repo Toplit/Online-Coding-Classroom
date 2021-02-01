@@ -1,6 +1,18 @@
 .form-section {
+    background-color: #243342;
     color: white;
     border-style: solid;
+    border-radius: 1%;
+    border-width: 1px;
+    border-color: gray;
     width: 40%;
     display: block;
+    margin:0 auto;
+    margin-top: 1%;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.form-section .border-bottom {
+    text-align: center;
 }
