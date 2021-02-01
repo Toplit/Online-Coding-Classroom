@@ -3,14 +3,16 @@ from django.http import JsonResponse
 from node_vm2 import VM, NodeVM
 from lesson.models import Lesson
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def select_language(request):
     """ View for Select Language page """
     context = {}
 
     return render(request, 'lesson/select_language.html', context)
 
+@login_required
 def select_lesson(request):
     """ View for Select Lesson page """
     context = {
@@ -19,6 +21,7 @@ def select_lesson(request):
 
     return render(request, 'lesson/select_lesson.html', context)
 
+@login_required
 def lesson(request, languageTitle, lessonTitle):
     """ View for the lesson itself """
     context = {}
@@ -29,7 +32,10 @@ def lesson(request, languageTitle, lessonTitle):
 
     context['lesson'] = selectedLesson[0]
     context['language'] = languageTitle.lower()
-    context['nextLesson'] = nextLesson[0].lesson_title
+    try:
+        context['nextLesson'] = nextLesson[0].lesson_title
+    except IndexError:
+        context['completed'] = True
 
 
     # input_code = request.POST.get("editor_input")

@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect
 from user.forms import AvgRegisterForm, AcademicRegisterForm
 from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 # from django.http import HttpResponse
 
+@login_required
 def home(request):
     """ View for mainsite homepage """
     context = {
@@ -44,12 +46,14 @@ def create_account(request, role):
 
     return render(request, 'classroom_main/create_account.html', context)
 
+@login_required
 def my_account(request):
     """ View for My Account page """
     context = {}
 
     return render(request, 'classroom_main/my_account.html', context)
 
+@login_required
 def performance_analysis(request):
     """ View for Performance Analysis page page """
     context = {}

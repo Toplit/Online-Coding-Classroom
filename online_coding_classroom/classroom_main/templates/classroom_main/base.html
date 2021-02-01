@@ -36,7 +36,7 @@
                 </li>
             </ul>
         </div>
-        {% if username %}
+        {% if user.is_authenticated %}
         <div class="collapse navbar-collapse order-2">
             <ul class="navbar-nav ml-auto nav-right">
                 <li class="nav-item dropdown">
@@ -46,15 +46,25 @@
                         <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                         <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
                     </svg>
-
-                        {{username}}
+                        {{user.username}}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="#">My Account</a>
                         <a class="dropdown-item" href="#">My Performance</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item logout" href="#">Log Out</a>
+                        <a class="dropdown-item logout" href="{% url 'logout' %}">Log Out</a>
                     </div>
+                </li>
+            </ul>
+        </div>
+        {% else %}
+        <div class="collapse navbar-collapse order-2">
+            <ul class="navbar-nav ml-auto nav-right">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'classroom-create-account' role='academic' %}">Create Account</a>
                 </li>
             </ul>
         </div>

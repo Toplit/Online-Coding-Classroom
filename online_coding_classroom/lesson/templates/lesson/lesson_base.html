@@ -135,8 +135,11 @@
 			<div class="modal-body text-center">
 				<h4>Lesson Complete!</h4>	
 				<p>Move on to the next lesson!</p>
-				<a href="" class="btn btn-success"><span>Next Lesson</span> <i class="material-icons">&#xE5C8;</i></a><!-- This to link to next lesson -->
-
+                {% if nextLesson %}
+				<a href="{% url 'lesson-lesson-specific' languageTitle=language lessonTitle=nextLesson %}" class="btn btn-success"><span>Next Lesson</span> <i class="material-icons">&#xE5C8;</i></a><!-- This to link to next lesson -->
+                {% else %}
+                <a href="{% url 'classroom-home' %}" class="btn btn-success"><span>Next Lesson</span> <i class="material-icons">&#xE5C8;</i></a>
+                {% endif %}
 			</div>
 		</div>
 	</div>
