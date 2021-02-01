@@ -29,7 +29,7 @@ def create_account(request, role):
             createNewUser(form)
             username = form.cleaned_data.get('username')
             messages.success(request, f"Account has been created for {username}!")
-            return redirect('classroom-home')
+            return redirect('login')
     else:
         if(role.lower() == "academic"):
             form = AcademicRegisterForm()

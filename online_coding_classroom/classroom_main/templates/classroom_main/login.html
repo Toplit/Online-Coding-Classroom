@@ -1,0 +1,26 @@
+{% extends "classroom_main/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block customlinks %} 
+    <link rel="stylesheet" href="{% static './forms.css' %}">
+{% endblock customlinks %}
+
+    {% block content %}
+{% if error %}
+    <h1 class="error">{{ error }}</h1>
+{% else %}
+    <div class="form-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+            <legend class="border-bottom mb-4"> Log In
+            </legend>
+                {{form|crispy}}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-secondary" type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+{% endif %}
+    {% endblock %}
