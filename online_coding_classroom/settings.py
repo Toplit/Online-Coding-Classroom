@@ -27,7 +27,8 @@ SECRET_KEY = '*m9-ql(a19z@ak9uu&^9ilul4xg$0!bv3j1e^0*@tfy)@m@@*@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['online-coding-classroom.herokuapp.com']
+ALLOWED_HOSTS = ['online-coding-classroom.herokuapp.com',
+                 'localhost']
 
 AUTH_USER_MODEL = "user.User"
 AUTHENTICATION_BACKENDS = (
