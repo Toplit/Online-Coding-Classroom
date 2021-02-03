@@ -53,20 +53,13 @@ def compile_basic_code(request):
 
     js = "exports.func = " + untrustedCode
 
-    # try:
-    #     with NodeVM.code(js) as module:
-    #         result = module.call_member("func") # Change to async | does not work in deployment
+    try:
+        with NodeVM.code(js) as module:
+            result = module.call_member("func") # Change to async | does not work in deployment
             
-    #         data = {'output': result}
-    # except:
-    #     data = {'output': "Error with the input code. Take another look at your code."}
-
-
-    with NodeVM.code(js) as module:
-        result = module.call_member("func") # Change to async | does not work in deployment
-        
-        data = {'output': result}
-
+            data = {'output': result}
+    except:
+        data = {'output': "Error with the input code. Take another look at your code."}
     return JsonResponse(data)
 
 def compile_array_code(request):
