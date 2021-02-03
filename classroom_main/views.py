@@ -41,6 +41,7 @@ def create_account(request, role):
             context['error'] = "URL does not exist. Please return to home and try again"
             return render(request, 'classroom_main/create_account.html', context)
 
+    context["type"] = role
     context['title'] = "Sign up to the Online Coding Classroom"
     context['form'] = form
 

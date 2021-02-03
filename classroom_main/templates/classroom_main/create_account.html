@@ -13,12 +13,21 @@
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
+            {% if type == "average" %}
             <legend class="border-bottom mb-4"> Sign up to learn programming today!
+            {% else %}
+            <legend class="border-bottom mb-4"> Sign up with your school to learn programming today!
+            {% endif %}
             </legend>
                 {{form|crispy}}
-            </fieldset>
+            </fieldset>         
             <div class="form-group">
                 <button class="btn btn-secondary" type="submit">Sign up</button>
+            {% if type == "average" %}
+                <small class="text-muted">
+                    <a class="ml-2" href="{% url 'classroom-create-account' role='academic' %}">Student & Teacher Sign up here!</a>
+                </small> 
+            {% endif %}  
             </div>
         </form>
     </div>
