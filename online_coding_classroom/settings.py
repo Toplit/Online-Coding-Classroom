@@ -24,12 +24,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '*m9-ql(a19z@ak9uu&^9ilul4xg$0!bv3j1e^0*@tfy)@m@@*@'
+
+SECRET_KEY = os.environ.get('SECRET_KEY')
+DB_USER = os.environ.get('DB_USER')
+DB_PASS = os.environ.get('DB_PASS')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['online-coding-classroom.herokuapp.com',
+                 'onlinecodingclassroomdev.herokuapp.com',
                  'localhost']
 
 AUTH_USER_MODEL = "user.User"
@@ -106,9 +111,9 @@ DATABASES = {
         'ENGINE': 'djongo',
         'CLIENT': {
             'name': 'OnlineCodingClassroom',
-            'host': 'mongodb+srv://JordanStenner:OCC2021@onlinecodingclassroom.sdmav.mongodb.net/OnlineCodingClassroom?retryWrites=true&w=majority',
-            'username': 'JordanStenner',
-            'password': 'OCC2021',
+            'host': f'mongodb+srv://{DB_USER}:{DB_PASS}@onlinecodingclassroom.sdmav.mongodb.net/OnlineCodingClassroom?retryWrites=true&w=majority',
+            'username': DB_USER,
+            'password': DB_PASS,
             'authMechanism': 'SCRAM-SHA-1'
             }
         }
