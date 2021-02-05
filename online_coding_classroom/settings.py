@@ -29,7 +29,6 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DB_USER = os.environ.get('DB_USER')
 DB_PASS = os.environ.get('DB_PASS')
 
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 

@@ -42,6 +42,10 @@
     color: #05da05;
 }
 
+#lesson_content {
+    color: #ffffff;
+}
+
 .CodeMirror {
     margin-top: 5px;
     min-width: 97%;

@@ -87,6 +87,15 @@
             Lesson Description Placeholder
             {% endif %}
         </p>
+        <br>
+        <h5>What are {{ lesson.lesson_title }}?:</h5>
+        <p id="lesson_content">
+            {% if lesson.lesson_content %}
+                {{ lesson.lesson_content|linebreaks }}
+            {% else %}
+                Lesson Description Placeholder
+            {% endif %}
+        </p>
     </div>
     <button id="run_code" class="btn btn-secondary">Run Code</button>
     <button id="next_lesson" class="btn btn-success">Next Lesson</button>
