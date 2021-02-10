@@ -1,9 +1,12 @@
-{% extends "lesson/base.html" %}
+{% extends "classroom_main/base.html" %}
 {% load static %}
 {% block customlinks %}
-    <link rel="stylesheet" href="{% static 'lesson/lesson.css' %}">
+    <link rel="stylesheet" href="{% static 'lesson/select.css' %}">
 {% endblock customlinks %}
 
 {% block content %}
-
+<div class="container">
+    {% block selections %}
+    {% endblock selections %}
+</div>
 {% endblock content %}

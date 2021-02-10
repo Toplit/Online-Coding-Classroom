@@ -14,7 +14,7 @@ class Language(models.Model):
     language_name = models.CharField(max_length=15, unique=True)
     description = models.TextField(max_length=100)
 
-    objects = LanguageManager() ## remove this
+    #objects = LanguageManager() ## remove this
 
     def __str__(self):
         return self.language_name

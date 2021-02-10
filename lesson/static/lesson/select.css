@@ -1,0 +1,36 @@
+body {
+	height:80%;
+}
+
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 10px;
+    min-width: 90%;
+    height: 100%;
+    background-color: rgb(59, 59, 59);
+}
+
+.card {
+	background-color: gray;
+}
+
+.card-body {
+	background-color: #969696c2;
+	color: white;
+	text-align: center;
+}
+
+.row{
+	padding-top: 7%;
+}
+
+.card-img {
+	max-width: 100px;
+    height: auto;
+	margin-bottom: 1px;
+}
+
+.card-title {
+	margin-bottom: 2px;
+}

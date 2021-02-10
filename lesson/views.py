@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from node_vm2 import VM, NodeVM
-from lesson.models import Lesson
+from lesson.models import Lesson, Language
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
@@ -9,6 +9,10 @@ from django.contrib.auth.decorators import login_required
 def select_language(request):
     """ View for Select Language page """
     context = {}
+    allLanguages = Language.objects.all()
+    print(allLanguages)
+
+    context['languages'] = allLanguages
 
     return render(request, 'lesson/select_language.html', context)
 
