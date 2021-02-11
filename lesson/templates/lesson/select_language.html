@@ -2,7 +2,9 @@
 {% load static %}
 
 {% block selections %}
-
+    <div id="top">
+        <h1 class="heading">Select a lesson to start</h1>
+    </div>
     <div class="row">
     {% if languages %}
     {% for language in languages %}
@@ -15,6 +17,7 @@
                         <a href="#"><img class="card-img" src="{% static image %}"></a>
                         {% endwith %}
                         <p class="card-text">{{language.description}}</p>
+                        <a href="{% url 'lesson-select-lesson' languageTitle=language.language_name %}" class="btn btn-secondary btn-sm">Select Language</a>
                 </div>
             </div>
         </div>
@@ -29,6 +32,7 @@
                         <a href="#"><img class="card-img" src="{% static image %}"></a>
                         {% endwith %}
                         <p class="card-text">{{language.description}}</p>
+                        <a href="{% url 'lesson-select-lesson' languageTitle=language.language_name %}" class="btn btn-secondary btn-sm">Select Language</a>
                 </div>
             </div>
         </div>

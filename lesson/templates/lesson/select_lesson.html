@@ -1,2 +1,47 @@
 {% extends "lesson/select_base.html" %}
 {% load static %}
+
+{% block selections %}
+    <div id="top">
+        {% if languageName %}
+        <h1 class="heading">{{ languageName }} Lessons</h1>
+        {% else %}
+        <h1 class="heading">Language Placeholder</h1>
+        {% endif %}
+    </div>
+
+    <div class="row">
+    {% if lessons %}
+    {% for lesson in lessons %}
+    {% ifequal forloop.counter|divisibleby:"4" False %}
+        <div class="col-sm-6 col-lg-3 py-2 mx-auto">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h4 class="card-lesson-title">{{lesson.lesson_title}}</h4>
+                    <hr class="mt-2 mb-2"/>
+                    <p class="card-text">{{lesson.lesson_description}}</p>
+                    <a href="{% url 'lesson-lesson-specific' languageTitle=languageName lessonTitle=lesson.lesson_title %}" class="btn btn-secondary btn-sm">Start Lesson</a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-lg-3 py-2 mx-auto">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h4 class="card-lesson-title">{{lesson.lesson_title}}</h4>
+                    <hr class="mt-2 mb-2"/>
+                    <p class="card-text">{{lesson.lesson_description}}</p>
+                    <a href="{% url 'lesson-lesson-specific' languageTitle=languageName lessonTitle=lesson.lesson_title %}" class="btn btn-secondary btn-sm">Start Lesson</a>
+                </div>
+            </div>
+        </div>
+    {% endifequal %}
+    {% if forloop.last == True %}
+        </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+{% endblock selections %}

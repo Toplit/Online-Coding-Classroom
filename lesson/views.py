@@ -10,18 +10,18 @@ def select_language(request):
     """ View for Select Language page """
     context = {}
     allLanguages = Language.objects.all()
-    print(allLanguages)
 
     context['languages'] = allLanguages
 
     return render(request, 'lesson/select_language.html', context)
 
 @login_required
-def select_lesson(request):
+def select_lesson(request, languageTitle):
     """ View for Select Lesson page """
-    context = {
-        # title = selected language + " Lessons"
-    }
+    context = {}
+    languageLessons = Lesson.objects.filter(language__language_name__iexact=languageTitle)
+    context['lessons'] = languageLessons
+    context['languageName'] = languageTitle
 
     return render(request, 'lesson/select_lesson.html', context)
 

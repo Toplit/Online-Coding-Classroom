@@ -22,7 +22,7 @@ body {
 }
 
 .row{
-	padding-top: 7%;
+	padding-top: 3%;
 }
 
 .card-img {
@@ -33,4 +33,13 @@ body {
 
 .card-title {
 	margin-bottom: 2px;
+}
+
+.card-lesson-title {
+	margin-bottom: 5px;
+}
+
+.heading {
+	color: white;
+    text-align: center;
 }
