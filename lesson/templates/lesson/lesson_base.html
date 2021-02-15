@@ -29,6 +29,10 @@
     $(function(){
         $(".alert").alert();
 
+        $("#submit_code").click(function(){
+            $("#success_modal").modal("show");
+        });
+
         $("#run_code").click(function(){
             var editor_input = $(".CodeMirror")[0].CodeMirror;
             var untrusted_code = editor_input.getValue();
@@ -53,6 +57,14 @@
         {% autoescape off %}
         {{lesson.check_result}}
         {% endautoescape %}
+
+        function setEditorsReadOnly(){
+            var editor_input = $(".CodeMirror")[0].CodeMirror;
+            var editor_output = $(".CodeMirror")[1].CodeMirror;
+
+            editor_input.setOption("readOnly", "nocursor");
+            editor_output.setOption("readOnly", "nocursor");
+        }
     });
     </script>
 {% endblock customlinks %}
@@ -89,16 +101,20 @@
         </p>
         <br>
         <h5>What are {{ lesson.lesson_title }}?:</h5>
-        <p id="lesson_content">
-            {% if lesson.lesson_content %}
-                {{ lesson.lesson_content|linebreaks }}
-            {% else %}
-                Lesson Description Placeholder
-            {% endif %}
-        </p>
+        <div class="lesson_content_container">
+            <p id="lesson_content">
+                {% if lesson.lesson_content %}
+                    {{ lesson.lesson_content|linebreaks }}
+                {% else %}
+                    Lesson Description Placeholder
+                {% endif %}
+            </p>
+        </div>
+        <div id="button_container">
+            <button id="run_code" class="btn btn-secondary">Run Code</button>
+            <button id="submit_code" class="btn btn-success">Submit Solution</button>
+        </div>
     </div>
-    <button id="run_code" class="btn btn-secondary">Run Code</button>
-    <button id="next_lesson" class="btn btn-success">Next Lesson</button>
 </div>
 
 <!-- Hint Modal -->

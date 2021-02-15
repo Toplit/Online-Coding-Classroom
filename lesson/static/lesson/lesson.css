@@ -3,7 +3,7 @@
     margin-left: auto;
     margin-top: 10px;
     min-width: 90%;
-    height: 100%;
+    height: 85%;
     background-color: rgb(59, 59, 59);
 }
 
@@ -29,8 +29,7 @@
     float: left;
     margin-top: 5px;
     color: white;
-    
- 
+	position: relative;
 }
 
 .container_form {
@@ -44,6 +43,21 @@
 
 #lesson_content {
     color: #ffffff;
+}
+
+.lesson_content_container {
+	overflow-y: scroll;
+	height: 50%;
+	border-color: gray;
+	border-style: groove;
+	padding-right: 5px;
+	padding-left: 5px;
+	position: absolute;
+}
+
+#run_code { 
+	display: inline-block;
+	margin-right: 5px;
 }
 
 .CodeMirror {
@@ -70,8 +84,14 @@
     color: white;
 }
 
-#next_lesson{
+#submit_code{
     display: none;
+}
+
+#button_container {
+	position: absolute;
+	bottom: 0;
+	margin-bottom: 2px;
 }
 
 #alert_message{
@@ -154,11 +174,38 @@
 }
 
 .modal-success .btn span {
-	margin: 1px 3px 0;
+	margin-top: 5px;
 	float: left;
 }
+
+.modal-success .btn .material-icons {
+	margin-top: 4px;
+}
+
 .modal-success .btn i {
 	margin-left: 1px;
 	font-size: 20px;
 	float: right;
+}
+
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+  }
+  
+/* Track */
+::-webkit-scrollbar-track {
+background: #f1f1f1;
+border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: #888; 
+border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: #555; 
 }

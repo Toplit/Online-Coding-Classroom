@@ -25,9 +25,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
-DB_USER = os.environ.get('DB_USER')
-DB_PASS = os.environ.get('DB_PASS')
+# SECRET_KEY = os.environ.get('SECRET_KEY')
+# DB_USER = os.environ.get('DB_USER')
+# DB_PASS = os.environ.get('DB_PASS')
+
+SECRET_KEY = 'KdbgZAl3dB1SWVWHgXA1VdcbtSAMdgd63NiFXnNloVHg8R0dsL'
+DB_USER = "JordanStenner"
+DB_PASS = "OCC2021"
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

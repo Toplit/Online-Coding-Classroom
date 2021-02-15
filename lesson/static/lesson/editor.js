@@ -3,6 +3,7 @@ $(function(){
         mode: "javascript",
         theme: "dracula",
         lineNumbers: true,
+        lineWrapping: true,
         matchBrackets: true,
         autoCloseBrackets: true,
     });
@@ -12,6 +13,7 @@ $(function(){
          mode: "markdown",
         theme: "dracula",
         lineNumbers: true,
+        lineWrapping: true,
         matchBrackets: true,
         autoCloseBrackets: true,
         readOnly: true,
