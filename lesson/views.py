@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from node_vm2 import VM, NodeVM
+from RestrictedPython import compile_restricted, safe_globals
+import re
+
 from lesson.models import Lesson, Language
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
@@ -49,9 +52,8 @@ def lesson(request, languageTitle, lessonTitle):
     # Store result in context
     return render(request, 'lesson/lesson_base.html', context) 
    
-def compile_basic_code(request):
-    """ Function for compiling basic code """
-    print("Compiling Code\n")
+def compile_javascript_code(request):
+    """ Function for compiling JavaScript code """
 
     untrustedCode = request.GET.get('untrustedCode')
 
@@ -65,6 +67,41 @@ def compile_basic_code(request):
     except:
         data = {'output': "Error with the input code. Take another look at your code."}
     return JsonResponse(data)
+
+def compile_code(request):
+    """ Function for compiling code based on language"""
+    language = request.GET.get('language')
+    print(language)
+
+    if(language == "javascript"):
+        data = compile_javascript_code(request)
+    elif(language == "python"):
+        data = compile_python_code(request)
+    
+    return data
+
+def compile_python_code(request):
+    """ Function for compiling Python code """
+    # Get the submitted untrusted code
+    untrustedCode = request.GET.get('untrustedCode')
+    # Get the function name from untrusted code - ### Can be changed to use actual lesson title from ajax call ###
+    lessonTitle = re.search('def (.*)():', untrustedCode)
+    lessonTitle = lessonTitle.group(1).replace('(','').replace(')','')
+
+    try:
+        loc = {}
+        byteCode = compile_restricted(untrustedCode, '<inline>', 'exec')
+        exec(byteCode, safe_globals, loc)
+
+        result = loc[lessonTitle]()
+        data = {'output': result}
+    except SyntaxError as e:
+        data = {'output': "Error with the input code. Take another look at your code." + str(e)}
+    except:
+        data = {'output': "Error with the input code. Take another look at your code."}        
+    return JsonResponse(data)
+
+
 
 def compile_array_code(request):
     """ Function for compiling code that returns an array """
