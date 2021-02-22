@@ -26,6 +26,7 @@
 
     <script>
     $(function(){
+        setEditorsMode();
         $(".alert").alert();
 
         $("#submit_code").click(function(){
@@ -65,6 +66,12 @@
 
             editor_input.setOption("readOnly", "nocursor");
             editor_output.setOption("readOnly", "nocursor");
+        }
+
+        function setEditorsMode(){
+            var editor_input = $(".CodeMirror")[0].CodeMirror;
+
+            editor_input.setOption("mode", "{{language}}");
         }
     });
     </script>

@@ -10,7 +10,7 @@ $(function(){
     editor.setSize("90%", "90%");
 
     var output = CodeMirror.fromTextArea(document.getElementById('editor_output'), {
-         mode: "markdown",
+        mode: "markdown",
         theme: "dracula",
         lineNumbers: true,
         lineWrapping: true,
