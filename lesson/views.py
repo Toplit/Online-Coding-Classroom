@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from node_vm2 import VM, NodeVM
 from RestrictedPython import compile_restricted, safe_globals
+from RestrictedPython.Eval import default_guarded_getiter
+from RestrictedPython.Guards import guarded_iter_unpack_sequence
 import re
 
 from lesson.models import Lesson, Language
@@ -82,8 +84,13 @@ def compile_code(request):
 
 def compile_python_code(request):
     """ Function for compiling Python code """
+    # Set global variables to allow safe for loop iteration
+    glb = safe_globals.copy()
+    glb['_getiter_'] = default_guarded_getiter
+    glb['_iter_unpack_sequence_'] = guarded_iter_unpack_sequence
     # Get the submitted untrusted code
     untrustedCode = request.GET.get('untrustedCode')
+    untrustedCode = untrustedCode.replace('\t', '    ')
     # Get the function name from untrusted code - ### Can be changed to use actual lesson title from ajax call ###
     lessonTitle = re.search('def (.*)():', untrustedCode)
     lessonTitle = lessonTitle.group(1).replace('(','').replace(')','')
@@ -91,14 +98,17 @@ def compile_python_code(request):
     try:
         loc = {}
         byteCode = compile_restricted(untrustedCode, '<inline>', 'exec')
-        exec(byteCode, safe_globals, loc)
+        exec(byteCode, glb, loc)
 
         result = loc[lessonTitle]()
         data = {'output': result}
     except SyntaxError as e:
         data = {'output': "Error with the input code. Take another look at your code." + str(e)}
-    except:
-        data = {'output': "Error with the input code. Take another look at your code."}        
+    except Exception as e:
+        if("+=" in untrustedCode):
+            data = {'output': "Error with the input code. In-place operations ('+=') are not currently supported."}  
+        else:
+            data = {'output': "Error with the input code. Take another look at your code. \n" + str(e)}        
     return JsonResponse(data)
 
 

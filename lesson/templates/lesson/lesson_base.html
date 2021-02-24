@@ -57,7 +57,6 @@
         });
         {% autoescape off %}
         {{lesson.check_result}}
-
         {% endautoescape %}
 
         function setEditorsReadOnly(){
@@ -91,7 +90,7 @@
     </div>
     <div class="container_editor">  
         <textarea id="editor_input" name="editor_input">
-{{lesson.lesson_code}}  
+{{lesson.lesson_code}}
         </textarea>
     </div>
     <div class="container_output">
