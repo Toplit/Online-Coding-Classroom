@@ -1,10 +1,20 @@
 from django.contrib import admin
-from lesson.models import Language, Lesson, LessonHint
+from lesson.models import ProgrammingEnvironment, Language, Lesson, LessonHint
 
 # Register your models here.
+
+class ProgrammingEnvironmentAdmin(admin.ModelAdmin):
+    """ Model for the Admin page """
+    list_display = ('environment_name', 'description')
+    #readonly_fields = ('id', 'language_name')
+
+    filter_horizontal = ()
+    list_filter = ()
+    fieldsets = ()
+
 class LanguageAdmin(admin.ModelAdmin):
     """ Model for the Admin page """
-    list_display = ('language_name', 'description')
+    list_display = ('language_name', 'description', 'environment')
     #readonly_fields = ('id', 'language_name')
 
     filter_horizontal = ()
@@ -31,6 +41,7 @@ class LessonHintAdmin(admin.ModelAdmin):
     list_filter = ()
     fieldsets = ()
 
+admin.site.register(ProgrammingEnvironment, ProgrammingEnvironmentAdmin)
 admin.site.register(Language, LanguageAdmin)
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(LessonHint, LessonHintAdmin)

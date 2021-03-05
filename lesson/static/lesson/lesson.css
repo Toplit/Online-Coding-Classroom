@@ -16,11 +16,22 @@
 }
 
 .container_output {
-    /* background-color: pink; */
     width: 38%;
     height: 90%;
     float: left;
-    
+}
+
+.container_viewport {
+    width: 38%;
+    height: 90%;
+    float: left;
+}
+
+#viewport_output {
+	height: 90%;
+	width: 97%;
+	margin-top: 5px;
+	background-color: white;
 }
 
 .container_content {

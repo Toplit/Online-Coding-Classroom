@@ -1,14 +1,19 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+import re
+
 from node_vm2 import VM, NodeVM
+
 from RestrictedPython import compile_restricted, safe_globals
 from RestrictedPython.Eval import default_guarded_getiter
 from RestrictedPython.Guards import guarded_iter_unpack_sequence
-import re
+
+import html
 
 from lesson.models import Lesson, Language
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+
 
 @login_required
 def select_language(request):
@@ -39,6 +44,10 @@ def lesson(request, languageTitle, lessonTitle):
     lessonNum += 1
     nextLesson = Lesson.objects.filter(lesson_number__exact=lessonNum)
 
+    lang = Language.objects.filter(language_name__iexact=languageTitle)
+    environment = lang[0].environment
+    
+
     context['lesson'] = selectedLesson[0]
     context['language'] = languageTitle.lower()
     try:
@@ -52,7 +61,12 @@ def lesson(request, languageTitle, lessonTitle):
     # output_code = ""
     # Compile the inputCode
     # Store result in context
-    return render(request, 'lesson/lesson_base.html', context) 
+    if(str(environment) == "Web Applications"):
+        return render(request, 'lesson/lesson_web.html', context) 
+    else:
+        return render(request, 'lesson/lesson_base.html', context) 
+    
+
    
 def compile_javascript_code(request):
     """ Function for compiling JavaScript code """
@@ -73,12 +87,13 @@ def compile_javascript_code(request):
 def compile_code(request):
     """ Function for compiling code based on language"""
     language = request.GET.get('language')
-    print(language)
 
     if(language == "javascript"):
         data = compile_javascript_code(request)
     elif(language == "python"):
         data = compile_python_code(request)
+    elif(html.unescape(language) == "html & css"):
+        data = compile_web_code(request)
     
     return data
 
@@ -111,6 +126,11 @@ def compile_python_code(request):
             data = {'output': "Error with the input code. Take another look at your code. \n" + str(e)}        
     return JsonResponse(data)
 
+def compile_web_code(request):
+    """ Function to outputing HTML to view """
+    data = {'output': request.GET.get('untrustedCode')}
+    return JsonResponse(data)
+
 
 
 def compile_array_code(request):
@@ -127,60 +147,3 @@ def compile_array_code(request):
         stringResult = ' '.join(map(str, result))
         data = {'output': result}
     return JsonResponse(data)
-
-    ###
-    #  node_vm2 code examples 
-    ###
-
-    ### For JavaScript without functions - below:
-            #     let arr = [4,3,2,1];
-            # for(let i=0; i < arr.length; i++){
-            #     for(let j=0; j < arr.length; j++){
-            #         if(arr[j] > arr[j+1]){
-            #             let tmp = arr[j];
-            #             arr[j] = arr[j+1];
-            #             arr[j+1] = tmp;
-            #         }
-            #     } 
-            # }
-
-    ### Use this Python:
-            # with VM() as vm:
-            #     vm.run(untrustedCode)
-            #     print(vm.run("arr"))
-            #     result = vm.run("arr")
-            #     stringResult = ' '.join(map(str, result))
-            #     data = {'output': stringResult}
-            # return JsonResponse(data)
-
-
-    ### For normal JavaScript functions - below:
-            #     function bubble(){
-            #     let arr = [4,3,2,1];
-            #     for(let i=0; i < arr.length; i++){
-            #         for(let j=0; j < arr.length; j++){
-            #             if(arr[j] > arr[j+1]){
-            #                 let tmp = arr[j];
-            #                 arr[j] = arr[j+1];
-            #                 arr[j+1] = tmp;
-            #             }
-            #         }
-            #     }
-            #     return arr;
-            # }
-
-    ### Use this Python - Set the function as an export and its returned value is output:
-            # def compile_code(request):
-            # print("Working\n")
-            # untrustedCode = request.GET.get('untrustedCode')
-
-            # js = "exports.bubbleFunc = " + untrustedCode
-
-            # with NodeVM.code(js) as module:
-            #     result = module.call_member("bubbleFunc")
-
-            #     print(result)
-
-            #     stringResult = ' '.join(map(str, result))
-            #     data = {'output': stringResult}
-            # return JsonResponse(data)

@@ -2,6 +2,7 @@ from django.db import models
 
 ### LANGUAGE/LESSON MODELS - MAY BE MOVED INTO ITS OWN APP ###
 
+
 class LanguageManager(models.Manager):
     """ Manager class for language methods """
     def get_lesson_count(self, lesson, language):
@@ -9,12 +10,20 @@ class LanguageManager(models.Manager):
         count = lesson.objects.filter(language__language_name__iexact=language.language_name).count()
         return count
 
+class ProgrammingEnvironment(models.Model):
+    """ Model for Programming Types """
+    environment_name = models.CharField(max_length=30, unique=True, primary_key=True)
+    description = models.TextField(max_length=100)
+
+    def __str__(self):
+        return self.environment_name
+
 class Language(models.Model):
-    """ Model for Programming Languages """
+    """ Model for Programming Environments """
     language_name = models.CharField(max_length=15, unique=True)
     description = models.TextField(max_length=100)
 
-    #objects = LanguageManager() ## remove this
+    environment = models.ForeignKey(ProgrammingEnvironment, null=True, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.language_name
@@ -27,7 +36,6 @@ class Lesson(models.Model):
     lesson_content = models.TextField()
     lesson_code = models.TextField()
     check_result = models.TextField()
-    compile_url = models.CharField(max_length=50)
     lesson_number = models.IntegerField()
 
     def __str__(self):

@@ -4,16 +4,11 @@
 
     <script src="{% static 'lesson/codemirror/lib/codemirror.js' %}"></script>
     <link rel="stylesheet" href="{% static 'lesson/codemirror/lib/codemirror.css' %}">
-    <!--<script src="{% static 'lesson/codemirror/mode/javascript/javascript.js' %}"></script> ADD IN LANGUAGE MODE HERE FOR EACH PAGE -->
-    {% if language == "javascript"%}
-        <script src="{% static 'lesson/codemirror/mode/javascript/javascript.js' %}"></script>
-    {% endif %}
-    {% if language == "python"%}
-        <script src="{% static 'lesson/codemirror/mode/python/python.js' %}"></script>
-    {% endif %}
-    {% if language == "java"%}
-        <script src="{% static 'lesson/codemirror/mode/clike/clike.js' %}"></script>
-    {% endif %}
+    <script src="{% static 'lesson/codemirror/mode/htmlmixed/htmlmixed.js' %}"></script>
+    <script src="{% static 'lesson/codemirror/mode/xml/xml.js' %}"></script>
+    <script src="{% static 'lesson/codemirror/mode/javascript/javascript.js' %}"></script>
+    <script src="{% static 'lesson/codemirror/mode/css/css.js' %}"></script>
+
     {% if language is None %}
         <script src="{% static 'lesson/codemirror/mode/markdown/markdown.js' %}"></script>
     {% endif %}
@@ -48,10 +43,9 @@
                 success: function (data) {
                     console.log(data);
                     let result = data["output"];
-                    var msg = check_result(result, untrusted_code);
-                    var full_output = result + "\n\n" + msg;
-                    var editor_output = $(".CodeMirror")[1].CodeMirror;
-                    editor_output.setValue(full_output);
+                    //var msg = check_result(result, untrusted_code);
+                    //var full_output = result + "\n\n" + msg;
+                    $("#viewport_output").contents().find('html').html(result)
                 }
             });
         });
@@ -61,21 +55,15 @@
 
         function setEditorsReadOnly(){
             var editor_input = $(".CodeMirror")[0].CodeMirror;
-            var editor_output = $(".CodeMirror")[1].CodeMirror;
 
             editor_input.setOption("readOnly", "nocursor");
-            editor_output.setOption("readOnly", "nocursor");
         }
 
         function setEditorsMode(){
             var editor_input = $(".CodeMirror")[0].CodeMirror;
 
-            if("{{language}}" == "java"){
-                editor_input.setOption("mode", "text/x-java");
-            }
-            else{
-                editor_input.setOption("mode", "{{language}}");
-            }
+            editor_input.setOption("mode", "htmlmixed");
+            editor_input.setOption("htmlMode", true);
             
         }
     });
@@ -99,9 +87,9 @@
 {{lesson.lesson_code}}
         </textarea>
     </div>
-    <div class="container_output">
-        <textarea id="editor_output">
-        </textarea>
+    <div class="container_viewport">
+        <iframe id="viewport_output" srcdoc="">
+        </iframe>
     </div>
     <div class="container_content">
         <h4>Lesson Objective:</h4>
