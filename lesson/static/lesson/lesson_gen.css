@@ -1,0 +1,13 @@
+.container_editor {
+    /* background-color: pink; */
+    width: 38%;
+    height: 90%;
+    float: left;
+    margin-left: 1%;
+}
+
+.container_output {
+    width: 38%;
+    height: 90%;
+    float: left;
+}

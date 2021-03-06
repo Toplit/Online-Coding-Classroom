@@ -76,10 +76,8 @@ def lesson(request, languageTitle, lessonTitle):
     # output_code = ""
     # Compile the inputCode
     # Store result in context
-    if(str(environment) == "Web Applications"):
-        return render(request, 'lesson/lesson_web.html', context) 
-    else:
-        return render(request, 'lesson/lesson_base.html', context) 
+
+    return render(request, 'lesson/lesson_base.html', context) 
     
 
    
@@ -107,7 +105,7 @@ def compile_code(request):
         data = compile_javascript_code(request)
     elif(language == "python"):
         data = compile_python_code(request)
-    elif(html.unescape(language) == "html & css"):
+    elif(html.unescape(language) == "html and css"):
         data = compile_web_code(request)
     
     return data
