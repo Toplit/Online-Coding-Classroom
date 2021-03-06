@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 import re
 
-from node_vm2 import VM, NodeVM
+from node_vm2 import NodeVM
 
 from RestrictedPython import compile_restricted, safe_globals
 from RestrictedPython.Eval import default_guarded_getiter
@@ -10,20 +10,31 @@ from RestrictedPython.Guards import guarded_iter_unpack_sequence
 
 import html
 
-from lesson.models import Lesson, Language
+from lesson.models import Lesson, Language, ProgrammingEnvironment
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
 
 @login_required
-def select_language(request):
+def select_language(request, environmentName):
     """ View for Select Language page """
     context = {}
-    allLanguages = Language.objects.all()
+    print(environmentName)
+    languages = Language.objects.filter(environment__environment_name__iexact=environmentName)
 
-    context['languages'] = allLanguages
+    context['languages'] = languages
 
     return render(request, 'lesson/select_language.html', context)
+
+@login_required
+def select_env(request):
+    """ View for Select Language page """
+    context = {}
+    allEnvironments = ProgrammingEnvironment.objects.all()
+
+    context['environments'] = allEnvironments
+
+    return render(request, 'lesson/select_env.html', context)
 
 @login_required
 def select_lesson(request, languageTitle):
