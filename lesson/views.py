@@ -22,6 +22,10 @@ def select_language(request, environmentName):
     print(environmentName)
     languages = Language.objects.filter(environment__environment_name__iexact=environmentName)
 
+    for language in languages:
+        if(' ' in language.language_name):
+            language.img_name = language.language_name.replace(" ","")
+
     context['languages'] = languages
 
     return render(request, 'lesson/select_language.html', context)
