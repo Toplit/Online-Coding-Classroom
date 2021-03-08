@@ -45,7 +45,6 @@
         $("#run_code").click(function(){
             var editor_input = $(".CodeMirror")[0].CodeMirror;
             var untrusted_code = editor_input.getValue();
-            console.log("Button works");
 
             $.ajax({
                 url: '{% url 'get_code' %}',
@@ -55,19 +54,22 @@
                 },
                 dataType: 'json',
                 success: function (data) {
-                    console.log(data);
+                    if("{{language}}" == "html and css"){
+                        $("#viewport_output").contents().find('html').html(data["HTML"])
+                    }                    
                     let result = data["output"];
                     var msg = check_result(result, untrusted_code);
-                    var full_output = result + "\n\n" + msg;
+                    
+                    //Add new lines if result is empty
+                    result = ((result == "") ? "" : result + "\n\n");
+
+                    var full_output = result + msg;
                     var editor_output = $(".CodeMirror")[1].CodeMirror;
                     editor_output.setValue(full_output);
-
-                    if("{{language}}" == "html and css"){
-                        $("#viewport_output").contents().find('html').html(result)
-                    }
                 }
             });
         });
+        
         {% autoescape off %}
         {{lesson.check_result}}
         {% endautoescape %}
@@ -108,7 +110,7 @@
         <a href="#hint_modal" role="button" data-toggle="modal"><img id="hint-img" src="{% static 'lesson/images/hint.png' %}"></a>
     </div>
     <div class="container_editor">  
-        <textarea id="editor_input" name="editor_input">  
+        <textarea id="editor_input" name="editor_input">
 {{lesson.lesson_code}}
         </textarea>
     </div>

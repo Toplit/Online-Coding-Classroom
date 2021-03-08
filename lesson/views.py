@@ -141,7 +141,15 @@ def compile_python_code(request):
 
 def compile_web_code(request):
     """ Function to outputing HTML to view """
-    data = {'output': request.GET.get('untrustedCode')}
+    untrustedCode = request.GET.get('untrustedCode')
+    coreHTMLStruct = ["<html>", "</html>", "<body>", "</body>", "<head>", "</head>"]
+    message = ""
+    for text in coreHTMLStruct:
+        if text not in untrustedCode:
+            message = "You forgot to add core HTML structures such as <html>, <body> or <head>!"
+            break
+    data = {'HTML': untrustedCode,
+            'output': message}
     return JsonResponse(data)
 
 
