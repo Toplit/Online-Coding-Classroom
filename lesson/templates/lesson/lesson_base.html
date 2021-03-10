@@ -35,6 +35,9 @@
 
     <script>
     $(function(){
+        {% if language == "html and css" %}
+        setViewport();
+        {% endif %}
         setEditorsMode();
         $(".alert").alert();
 
@@ -55,7 +58,7 @@
                 dataType: 'json',
                 success: function (data) {
                     if("{{language}}" == "html and css"){
-                        $("#viewport_output").contents().find('html').html(data["HTML"])
+                        setViewport();
                     }                    
                     let result = data["output"];
                     var msg = check_result(result, untrusted_code);
@@ -91,8 +94,16 @@
             else{
                 editor_input.setOption("mode", "{{language}}");
             }
-            
         }
+
+        {% if language == "html and css" %}
+        function setViewport(){
+            var editor_input = $(".CodeMirror")[0].CodeMirror;
+            var untrusted_code = editor_input.getValue();
+
+            $("#viewport_output").contents().find('html').html(untrusted_code);
+        }
+        {% endif %}
     });
     </script>
 {% endblock customlinks %}
