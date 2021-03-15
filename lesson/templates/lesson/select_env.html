@@ -14,7 +14,12 @@
                 <div class="card-body">
                         <h4 class="card-title">{{environment.environment_name}}</h4>
                         <p class="card-text">{{environment.description}}</p>
-                        <a href="{% url 'lesson-select-language' environmentName=environment.environment_name %}" class="btn btn-secondary btn-sm">Select Language</a>
+                        {% if languageCount|get_value:environment.environment_name > 0 %}
+                        <a href="{% url 'lesson-select-language' environmentName=environment.environment_name %}" class="btn btn-secondary btn-sm" role="button">Select Environment</a>
+                        {% else %}
+                        <button href="{% url 'lesson-select-language' environmentName=environment.environment_name %}" class="btn btn-secondary btn-sm" disabled>Select Environment</button>
+                        <p id="unavailable">No languages for this environment yet!</p>
+                        {% endif %}
                 </div>
             </div>
         </div>
@@ -26,7 +31,12 @@
                 <div class="card-body">
                         <h4 class="card-title">{{environment.environment_name}}</h4>
                         <p class="card-text">{{environment.description}}</p>
-                        <a href="{% url 'lesson-select-language' environmentName=environment.environment_name %}" class="btn btn-secondary btn-sm">Select Language</a>
+                        {% if languageCount|get_value:environment.environment_name > 0 %}
+                        <a href="{% url 'lesson-select-language' environmentName=environment.environment_name %}" class="btn btn-secondary btn-sm" role="button">Select Environment</a>
+                        {% else %}
+                        <button href="{% url 'lesson-select-language' environmentName=environment.environment_name %}" class="btn btn-secondary btn-sm" disabled>Select Environment</button>
+                        <p id="unavailable">No lessons for this environment yet!</p>
+                        {% endif %}
                 </div>
             </div>
         </div>

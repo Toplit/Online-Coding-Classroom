@@ -43,3 +43,9 @@ body {
 	color: white;
     text-align: center;
 }
+
+#unavailable {
+	font-size: small;
+	color: #6328ed;
+	margin-bottom: 0;
+}

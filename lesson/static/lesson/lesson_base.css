@@ -32,6 +32,7 @@
 .lesson_content_container {
 	overflow-y: scroll;
 	height: 50%;
+	min-width: 100%;
 	border-color: gray;
 	border-style: groove;
 	padding-right: 5px;

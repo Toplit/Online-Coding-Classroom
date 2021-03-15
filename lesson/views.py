@@ -14,19 +14,23 @@ from lesson.models import Lesson, Language, ProgrammingEnvironment
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
+from django.template.defaulttags import register
+
 
 @login_required
 def select_language(request, environmentName):
     """ View for Select Language page """
     context = {}
-    print(environmentName)
+    lessonCount = {}
     languages = Language.objects.filter(environment__environment_name__iexact=environmentName)
 
     for language in languages:
         if(' ' in language.language_name):
             language.img_name = language.language_name.replace(" ","")
+        lessonCount[language.language_name] =  Lesson.objects.filter(language__language_name__iexact=language.language_name).count()
 
     context['languages'] = languages
+    context['lessonCount'] = lessonCount
 
     return render(request, 'lesson/select_language.html', context)
 
@@ -34,9 +38,14 @@ def select_language(request, environmentName):
 def select_env(request):
     """ View for Select Language page """
     context = {}
+    languageCount = {}
     allEnvironments = ProgrammingEnvironment.objects.all()
 
+    for env in allEnvironments:
+        languageCount[env.environment_name] = Language.objects.filter(environment__environment_name__iexact=env.environment_name).count()
+
     context['environments'] = allEnvironments
+    context['languageCount'] = languageCount
 
     return render(request, 'lesson/select_env.html', context)
 
@@ -168,3 +177,8 @@ def compile_array_code(request):
         stringResult = ' '.join(map(str, result))
         data = {'output': result}
     return JsonResponse(data)
+
+# Custom filter for accessing dictionaries from template
+@register.filter
+def get_value(dictionary, key):
+    return dictionary.get(key)
