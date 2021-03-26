@@ -10,6 +10,7 @@ ROLE_CHOICES = (
 
 class UserManager(BaseUserManager):
     """ Class for UserManager - Use this to create users """
+    # Method for creating a normal user
     def create_user(self, email, username, role, first_name, last_name, password=None):
         """ Function for creating standard users """
         if not email:
@@ -29,7 +30,7 @@ class UserManager(BaseUserManager):
             first_name = first_name,
             last_name = last_name
         )
-        print(role.upper())
+        # If the role is TEACHER, they are staff
         if(role.upper() == "TEACHER"):
             user.is_staff = True
 
@@ -37,6 +38,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+    # Method for creating a superuser/admin
     def create_superuser(self, email, username, role, first_name, last_name, password):
         """ Function for creating a superuser """
         user = self.create_user(
@@ -53,7 +55,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-
+# Generic user model
 class User(AbstractBaseUser):
     """ Custom User model """
     email        = models.EmailField(verbose_name="email", max_length=60, unique=True) 

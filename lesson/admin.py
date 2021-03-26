@@ -1,12 +1,13 @@
 from django.contrib import admin
 from lesson.models import ProgrammingEnvironment, Language, Lesson, LessonHint
 
-# Register your models here.
+# list_display - Show these fields for each model on the Admin site
+# search_fields - Allow searching in these fields
 
+# Register models for the Admin site
 class ProgrammingEnvironmentAdmin(admin.ModelAdmin):
     """ Model for the Admin page """
     list_display = ('environment_name', 'description')
-    #readonly_fields = ('id', 'language_name')
 
     filter_horizontal = ()
     list_filter = ()
@@ -15,7 +16,6 @@ class ProgrammingEnvironmentAdmin(admin.ModelAdmin):
 class LanguageAdmin(admin.ModelAdmin):
     """ Model for the Admin page """
     list_display = ('language_name', 'description', 'environment')
-    #readonly_fields = ('id', 'language_name')
 
     filter_horizontal = ()
     list_filter = ()
@@ -24,7 +24,6 @@ class LanguageAdmin(admin.ModelAdmin):
 class LessonAdmin(admin.ModelAdmin):
     """ Model for the Admin page """
     list_display = ('lesson_number', 'lesson_title', 'language', 'lesson_description')
-    #readonly_fields = ('language', 'lesson_title', 'lesson_description')
     search_fields = ('language', 'lesson_title')
 
     filter_horizontal = ()
@@ -34,7 +33,6 @@ class LessonAdmin(admin.ModelAdmin):
 class LessonHintAdmin(admin.ModelAdmin):
     """ Model for the Admin page """
     list_display = ('hint_title', 'lesson', 'hint_description')
-    #readonly_fields = ('hint_title', 'lesson', 'hint_description')
     search_fields = ('hint_title','lesson')
 
     filter_horizontal = ()
@@ -45,7 +43,3 @@ admin.site.register(ProgrammingEnvironment, ProgrammingEnvironmentAdmin)
 admin.site.register(Language, LanguageAdmin)
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(LessonHint, LessonHintAdmin)
-
-#admin.site.register(Lesson)
-#admin.site.register(LessonHint)
-#admin.site.register(Language)

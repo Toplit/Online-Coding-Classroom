@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-
+# Variables below are stored in the Heroku app environment variables
 SECRET_KEY = os.environ.get('SECRET_KEY')
 DB_USER = os.environ.get('DB_USER')
 DB_PASS = os.environ.get('DB_PASS')
@@ -33,6 +33,7 @@ DB_PASS = os.environ.get('DB_PASS')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Only localhost for testing, and Heroku domains are allows to host this application
 ALLOWED_HOSTS = ['online-coding-classroom.herokuapp.com',
                  'onlinecodingclassroomdev.herokuapp.com',
                  'localhost']
@@ -45,7 +46,6 @@ AUTHENTICATION_BACKENDS = (
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'user',
     'classroom_main',
@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+# Added whitenoise for use of static files in Heroku
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -105,7 +106,7 @@ WSGI_APPLICATION = 'online_coding_classroom.wsgi.application'
 # }
 
  ### USE BELOW CODE FOR CONNECTING TO A HOSTED DATABASE ###
-
+# Database configurations for use of MongoDB through Djongo
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
@@ -164,16 +165,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-# STATICFILES_DIR = [
-#     os.path.join(PROJECT_ROOT, '../classroom_main/static'),
-# ]
-
+# Static files configurations
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 STATIC_URL = '/static/'
-#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# Crispy configurations for use in template
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+# Login configurations
 LOGIN_REDIRECT_URL = 'classroom-home'
 LOGIN_URL = 'login'
 

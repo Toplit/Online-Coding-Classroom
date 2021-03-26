@@ -19,8 +19,8 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('classroom_main.urls')),
-    path('', include('lesson.urls')),
-    path('login/', auth_views.LoginView.as_view(template_name='classroom_main/login.html'), name="login"),
-    path('logout/', auth_views.LogoutView.as_view(template_name='classroom_main/logout.html'), name="logout")
+    path('', include('classroom_main.urls')),   # Includes the URLS defined in classroom_main.urls
+    path('', include('lesson.urls')),           # Includes the URLS defined in lesson.urls
+    path('login/', auth_views.LoginView.as_view(template_name='classroom_main/login.html'), name="login"),    # Use the login.html as a LoginView class view 
+    path('logout/', auth_views.LogoutView.as_view(template_name='classroom_main/logout.html'), name="logout") # Use the logout.html as a LogoutView class view 
 ]

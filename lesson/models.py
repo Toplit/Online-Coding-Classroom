@@ -1,7 +1,9 @@
 from django.db import models
 
-### LANGUAGE/LESSON MODELS - MAY BE MOVED INTO ITS OWN APP ###
-
+# Relationship of models:
+# ProgrammingEnvironment has many Languages
+# Languages have many lessons
+# Lessons have many lesson hints
 
 class LanguageManager(models.Manager):
     """ Manager class for language methods """
@@ -32,10 +34,10 @@ class Lesson(models.Model):
     """ Model for Lessons """
     lesson_title = models.CharField(max_length=50)
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
-    lesson_description = models.TextField()
-    lesson_content = models.TextField()
-    lesson_code = models.TextField()
-    check_result = models.TextField()
+    lesson_description = models.TextField() # Used for the lesson exercise description
+    lesson_content = models.TextField()     # Used for the lesson topic explanation
+    lesson_code = models.TextField()        # Used for the lesson exercise code
+    check_result = models.TextField()       # Used for the JavaScript check input code 
     lesson_number = models.IntegerField()
 
     def __str__(self):
