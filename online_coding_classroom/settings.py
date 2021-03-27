@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import sys
 # import mimetypes
 # mimetypes.add_type("text/css", ".css", True)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -107,18 +108,26 @@ WSGI_APPLICATION = 'online_coding_classroom.wsgi.application'
 
  ### USE BELOW CODE FOR CONNECTING TO A HOSTED DATABASE ###
 # Database configurations for use of MongoDB through Djongo
-DATABASES = {
-    'default': {
-        'ENGINE': 'djongo',
-        'CLIENT': {
-            'name': 'OnlineCodingClassroom',
-            'host': f'mongodb+srv://{DB_USER}:{DB_PASS}@onlinecodingclassroom.sdmav.mongodb.net/OnlineCodingClassroom?retryWrites=true&w=majority',
-            'username': DB_USER,
-            'password': DB_PASS,
-            'authMechanism': 'SCRAM-SHA-1'
-            }
+if 'test' in sys.argv:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'djongo',
+            'NAME': 'test_db'
         }
     }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'djongo',
+            'CLIENT': {
+                'name': 'OnlineCodingClassroom',
+                'host': f'mongodb+srv://{DB_USER}:{DB_PASS}@onlinecodingclassroom.sdmav.mongodb.net/OnlineCodingClassroom?retryWrites=true&w=majority',
+                'username': DB_USER,
+                'password': DB_PASS,
+                'authMechanism': 'SCRAM-SHA-1'
+                }
+            }
+        }
 
 
 # DATABASES = {
