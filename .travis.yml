@@ -6,7 +6,7 @@ services:
   - mongodb
 
 scripts:
-  - python coverage run --source='.' manage.py test
+  - coverage run --source='.' manage.py test
 
 after_success:
-  - python coverage report
+  - coverage report
