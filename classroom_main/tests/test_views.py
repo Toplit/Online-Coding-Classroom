@@ -74,6 +74,7 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, "classroom_main/login.html")
 
     def test_logout(self):
+        """ Method to test the logout functionality """
         self.login_client()
         response = self.client.get(reverse("classroom-home"), follow=True)
         self.assertEqual(response.context['user'], self.user)
@@ -82,6 +83,7 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, "classroom_main/logout.html")
 
     def test_create_account(self):
+        """ Method to test the 'create_account' method """
         response = self.client.post(reverse("classroom-create-account", kwargs={"role" : "average"}), {"email" : "test@testing.com",
                                                                                                     "username" : "TestingUser",
                                                                                                     "first_name" : "Tester2",
