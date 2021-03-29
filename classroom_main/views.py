@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from user.forms import AvgRegisterForm, AcademicRegisterForm
 from django.contrib import messages
-from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from classroom_main import services
+from user.forms import AvgRegisterForm, AcademicRegisterForm
 
 # @login_required decorator used on views that should not be accessed without being logged in
 
@@ -31,7 +31,7 @@ def create_account(request, role):
 
         # Check the form is valid
         if(form.is_valid()):
-            createNewUser(form)
+            services.createNewUser(form)
             username = form.cleaned_data.get('username')
             messages.success(request, f"Account has been created for {username}!")
             return redirect('login')
@@ -65,16 +65,3 @@ def performance_analysis(request):
     context = {}
 
     return render(request, 'classroom_main/performance_analysis.html', context)
-
-    
-def createNewUser(form):
-    # Retrieve and clean data from each form field
-    email = form.cleaned_data.get('email')
-    username = form.cleaned_data.get('username')
-    role = form.cleaned_data.get('role')
-    first_name = form.cleaned_data.get('first_name')
-    last_name = form.cleaned_data.get('last_name')
-    password = form.cleaned_data.get('password1')
-
-    # Create the user and save it to the database
-    get_user_model().objects.create_user(email, username, role, first_name, last_name, password)
