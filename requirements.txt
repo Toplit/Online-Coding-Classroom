@@ -28,7 +28,6 @@ pylint-django==2.3.0
 pylint-plugin-utils==0.6
 pymongo==3.11.0
 pytz==2020.1
-pywin32==300
 RestrictedPython==5.1
 six==1.15.0
 sqlparse==0.2.4
