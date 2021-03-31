@@ -16,3 +16,12 @@
 .form-section .border-bottom {
     text-align: center;
 }
+
+#return-to-sign-up {
+    text-align: center;
+    margin-top: 2%;
+}
+
+.error {
+    margin-top: 1%;
+}

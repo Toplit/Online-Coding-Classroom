@@ -8,6 +8,11 @@
 {% block content %}
 {% if error %}
     <h1 class="error">{{ error }}</h1>
+    <div id="return-to-sign-up">
+        <small class="text-muted">
+            <a class="btn btn-secondary"  href="{% url 'classroom-create-account' role='average' %}">Click here to sign up for a normal account.</a>
+        </small> 
+    </div>
 {% else %}
     <div class="form-section">
         <form method="POST">
@@ -23,11 +28,11 @@
             </fieldset>         
             <div class="form-group">
                 <button class="btn btn-secondary" type="submit">Sign up</button>
-            {% if type == "average" %}
+            {% comment %} {% if type == "average" %}
                 <small class="text-muted">
                     <a class="ml-2" href="{% url 'classroom-create-account' role='academic' %}">Student & Teacher Sign up here!</a>
                 </small> 
-            {% endif %}  
+            {% endif %}   {% endcomment %}
             </div>
         </form>
     </div>

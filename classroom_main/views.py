@@ -25,20 +25,30 @@ def create_account(request, role):
     if request.method == "POST":
         # Use a different form depending on the Role type
         if(role.lower() == "academic"):
-            form = AcademicRegisterForm(request.POST)
+            #form = AcademicRegisterForm(request.POST)
+            context['error'] = "Academic accounts not yet implemented. Please return to home and create a normal account."
+            return render(request, 'classroom_main/create_account.html', context)
         elif(role.lower() == "average"):
             form = AvgRegisterForm(request.POST)
 
         # Check the form is valid
         if(form.is_valid()):
-            services.createNewUser(form)
-            username = form.cleaned_data.get('username')
-            messages.success(request, f"Account has been created for {username}!")
-            return redirect('login')
+            if(role.lower() == "average"):
+                services.createNewUser(form)
+                username = form.cleaned_data.get('username')
+                messages.success(request, f"Account has been created for {username}!")
+                return redirect('login')
+            elif(role.lower() == "academic"):
+                services.createNewAcademicUser(form)
+                username = form.cleaned_data.get('username')
+                messages.success(request, f"Account has been created for {username}!")
+                return redirect('login')
     else:
         # Use a different form depending on the Role type
         if(role.lower() == "academic"):
-            form = AcademicRegisterForm()
+            #form = AcademicRegisterForm()
+            context['error'] = "Academic accounts not yet implemented. Please return to home and create a normal account."
+            return render(request, 'classroom_main/create_account.html', context)
         elif(role.lower() == "average"):
             form = AvgRegisterForm()
         else:

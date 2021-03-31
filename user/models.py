@@ -63,6 +63,8 @@ class User(AbstractBaseUser):
     role         = models.CharField(max_length=12, choices=ROLE_CHOICES)
     first_name   = models.CharField(max_length=25)
     last_name    = models.CharField(max_length=30)
+    #computing_class = models.ForeignKey(ComputingClass, on_delete=models.PROTECT) # Use for Student User
+    #school = models.ForeignKey(School, on_delete=models.PROTECT) # Use for Teacher user
     # ADD AWARDS ONCE AWARDS COLLECTION IS CREATED
     date_joined  = models.DateTimeField(verbose_name="date joined", auto_now_add=True)
     last_login   = models.DateTimeField(verbose_name="last login", auto_now=True)

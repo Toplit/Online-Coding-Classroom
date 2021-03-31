@@ -7,8 +7,11 @@
     {% block content %}
 
     <h1 class="error">Successfully logged out</h1>
-    <small class="text-muted">
-        <a class="ml-2" href="{% url 'login' %}">Log back in here</a>
-    </small>
+
+    <div id="logback-in">
+        <small class="text-muted">
+            <a class="btn btn-secondary" href="{% url 'login' %}">Log back in here</a>
+        </small>
+    </div>
 
     {% endblock %}
