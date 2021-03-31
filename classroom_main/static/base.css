@@ -38,3 +38,7 @@ body {
     color: white;
     text-align: center;
 }
+
+#logback-in {
+    text-align: center;
+}
