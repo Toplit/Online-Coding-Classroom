@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <h4 class="card-lesson-title">{{lesson.lesson_title}}</h4>
                     <hr class="mt-2 mb-2"/>
-                    <p class="card-text">{{lesson.lesson_description}}</p>
+                    <p class="card-text">{{lesson.lesson_summary}}</p>
                     <a href="{% url 'lesson-lesson-specific' languageTitle=languageName lessonTitle=lesson.lesson_title %}" class="btn btn-secondary btn-sm">Start Lesson</a>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                 <div class="card-body">
                     <h4 class="card-lesson-title">{{lesson.lesson_title}}</h4>
                     <hr class="mt-2 mb-2"/>
-                    <p class="card-text">{{lesson.lesson_description}}</p>
+                    <p class="card-text">{{lesson.lesson_summary}}</p>
                     <a href="{% url 'lesson-lesson-specific' languageTitle=languageName lessonTitle=lesson.lesson_title %}" class="btn btn-secondary btn-sm">Start Lesson</a>
                 </div>
             </div>

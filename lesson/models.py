@@ -34,6 +34,7 @@ class Lesson(models.Model):
     """ Model for Lessons """
     lesson_title = models.CharField(max_length=50)
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
+    lesson_summary = models.TextField()
     lesson_description = models.TextField() # Used for the lesson exercise description
     lesson_content = models.TextField()     # Used for the lesson topic explanation
     lesson_code = models.TextField()        # Used for the lesson exercise code

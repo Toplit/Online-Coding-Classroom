@@ -76,6 +76,12 @@ def lesson(request, languageTitle, lessonTitle):
         context['completed'] = True
 
     return render(request, 'lesson/lesson_base.html', context) 
+
+def language_complete(request, languageTitle):
+    context = {}
+    context['language'] = services.get_single_language(languageTitle)[0]
+    print(context['language'])
+    return render (request, 'lesson/language_complete.html', context)
     
 def compile_code(request):
     """ Function for compiling code based on language"""

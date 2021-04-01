@@ -1,0 +1,134 @@
+.completed-container{
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+    background-image: linear-gradient(to bottom ,#3879bb,#305479);	
+}
+
+.complete{
+	width:100px;
+	height:100px;
+	position:relative;
+	left: 0;
+	right: 0;
+	top:40px;
+	margin:auto;
+}
+.completed-container h1{
+	font-family: 'Julius Sans One', sans-serif;
+	font-size:1.4em;
+    margin-top: 40px;
+}
+
+.lang-complete{
+	position:relative;
+	left:50%;
+	top:50%;
+	max-width:800px;	
+	width:80%;
+	min-height:500px;
+	max-height:900px;
+    transform:translate(-50%,-50%);
+	border:2px solid #2c3e50;
+	border-radius:5px;
+	box-shadow: 12px 15px 20px 0 rgba(46,61,73,.3);
+	background:#2c3e50;
+	text-align:center;
+	font-size:2em;
+	color: white;
+}
+
+.completed-content{
+	position:relative;
+	font-weight:normal;
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+	left:0;
+	right:0;
+	width:80%;
+	max-width:800px;
+	font-family: 'Lato', sans-serif;
+	font-size:0.6em;
+
+}
+
+#return-btn {
+    margin-top: 20px;
+}
+
+.circ{
+    opacity: 0;
+    stroke-dasharray: 130;
+    stroke-dashoffset: 130;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
+}
+.tick{
+    stroke-dasharray: 50;
+    stroke-dashoffset: 50;
+    -webkit-transition: stroke-dashoffset 1s 0.5s ease-out;
+    -moz-transition: stroke-dashoffset 1s 0.5s ease-out;
+    -ms-transition: stroke-dashoffset 1s 0.5s ease-out;
+    -o-transition: stroke-dashoffset 1s 0.5s ease-out;
+    transition: stroke-dashoffset 1s 0.5s ease-out;
+}
+.drawn svg .path{
+    opacity: 1;
+    stroke-dashoffset: 0;
+}
+
+
+@media (max-width:600px){
+	.lang-complete h1{
+		font-size:1.2em;
+	}
+	
+	.complete{
+		top:-10px;
+		width:80px;
+		height:80px;
+	}
+	.completed-content{
+		font-size:0.5em;
+	}
+}
+
+@media (max-width:500px){
+	.lang-complete h1{
+		font-size:1em;
+	}
+	
+	.complete{
+		top:-10px;
+		width:70px;
+		height:70px;
+	}
+	
+}
+
+@media (max-width:410px){
+	.lang-complete h1{
+		font-size:1em;
+	}
+	
+	.lang-complete .hide{
+		display:none;
+	}
+	
+	.lang-complete{
+		width:100%;
+	}
+	
+	.complete{
+		top:-10px;
+		width:50px;
+		height:50px;
+	}
+	
+}

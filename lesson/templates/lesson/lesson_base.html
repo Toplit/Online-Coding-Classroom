@@ -151,11 +151,11 @@
             {% endif %}
         </p>
         <br>
-        <h5>What are {{ lesson.lesson_title }}?:</h5>
+        <h5>What are {{ lesson.lesson_title }}?</h5>
         <div class="lesson_content_container">
             <p id="lesson_content">
                 {% if lesson.lesson_content %}
-                    {{ lesson.lesson_content|linebreaks }}
+                    {{ lesson.lesson_content|safe|linebreaks }}
                 {% else %}
                     Lesson Description Placeholder
                 {% endif %}
@@ -213,7 +213,7 @@
                 {% if nextLesson %}
 				<a href="{% url 'lesson-lesson-specific' languageTitle=language lessonTitle=nextLesson %}" class="btn btn-success"><span>Next Lesson</span> <i class="material-icons">&#xE5C8;</i></a><!-- This to link to next lesson -->
                 {% else %}
-                <a href="{% url 'classroom-home' %}" class="btn btn-success"><span>Next Lesson</span> <i class="material-icons">&#xE5C8;</i></a>
+                <a href="{% url 'lesson-language-complete' languageTitle=language %}" class="btn btn-success"><span>Complete Language</span> <i class="material-icons">&#xE5C8;</i></a>
                 {% endif %}
 			</div>
 		</div>

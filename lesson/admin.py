@@ -24,7 +24,6 @@ class LanguageAdmin(admin.ModelAdmin):
 class LessonAdmin(admin.ModelAdmin):
     """ Model for the Admin page """
     list_display = ('lesson_number', 'lesson_title', 'language', 'lesson_description')
-    search_fields = ('language', 'lesson_title')
 
     filter_horizontal = ()
     list_filter = ()
@@ -33,7 +32,6 @@ class LessonAdmin(admin.ModelAdmin):
 class LessonHintAdmin(admin.ModelAdmin):
     """ Model for the Admin page """
     list_display = ('hint_title', 'lesson', 'hint_description')
-    search_fields = ('hint_title','lesson')
 
     filter_horizontal = ()
     list_filter = ()
