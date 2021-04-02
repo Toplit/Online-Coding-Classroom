@@ -24,6 +24,10 @@ def get_languages(envName):
     """ Function for getting languages using environment name """
     return Language.objects.filter(environment__environment_name__iexact=envName)
 
+def get_all_languages():
+    """ Function for getting all languages """
+    return Language.objects.all()
+
 def get_language_lesson(languageName, lessonTitle):
     """ Function for getting lesson using language name and lesson title """
     return Lesson.objects.filter(language__language_name__iexact=languageName).filter(lesson_title__iexact=lessonTitle)

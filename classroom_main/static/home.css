@@ -1,0 +1,93 @@
+#container-main{
+    width: 80%;
+    height: 80%;
+    margin: 0 auto;
+    margin-top: 2%;
+
+}
+
+#container-left{
+    float: left;
+    width: 45%;
+    height: 80%;
+    margin-top: 5%;
+    background-color: rgb(59, 59, 59);
+	box-shadow: 12px 15px 20px 0 rgba(36, 47, 53, 0.3);  
+}
+
+#container-right{
+    float: right;
+    width: 45%;
+    height: 50%;
+    margin-top: 10%;
+    background-color: rgb(59, 59, 59);
+    box-shadow: 12px 15px 20px 0 rgba(36, 47, 53, 0.3);
+}
+
+#container-left h1 {
+    color: white;
+    text-align: center;
+    margin-top: 6%;
+    margin-bottom: 5%;
+}
+
+#container-right h1 {
+    color: white;
+    text-align: center;
+    margin-top: 6%;
+    margin-bottom: 5%;
+}
+
+.lang-container {
+    height: 30%;
+    width: 95%;
+    margin: auto;
+    margin-top: 2%;
+    /*border-bottom-style: solid;
+    border-bottom-width: 2px;
+    border-bottom-color: rgb(95, 95, 95);*/
+    border-top-style: solid;
+    border-top-width: 2px;
+    border-top-color: rgb(95, 95, 95);
+}
+
+#improvement-container {
+    height: 60%;
+    width: 95%;
+    margin: auto;
+    margin-top: 2%;
+    text-align: center;
+    color: white;
+}
+
+#feedback {
+    outline: none;
+    overflow: auto;
+    height: 150px;
+    width: 80%;
+}
+
+.lang-content{
+    color: white;
+    float: right;
+    height: 80%;
+    width: 70%;
+    margin-top: 3%;
+    margin-right: 4%;
+    text-align: center;
+}
+
+.lang-content h3 {
+    margin-top: 1%;
+}
+
+.btn-secondary {
+    margin-top: 2%;
+}
+
+.card-img {
+	max-width: 100px;
+    height: auto;
+	margin-top: 6%;
+    margin-left: 4%
+}

@@ -1,4 +1,60 @@
 {% extends "classroom_main/base.html" %}
+{% load static %}
+{% block customlinks %}
+<link rel="stylesheet" href="{% static './home.css' %}"/>
+{% endblock customlinks %}
 {% block content %}
-<h1 style="color:white; text-align: center; margin-top:20px;"><a href="{% url 'lesson-lesson-specific' languageTitle='JavaScript' lessonTitle='Variables' %}">Click this to go to Lesson 1 for JavaScript - Thanks for helping to test this service!</a></h1>
+
+<div id="container-main">
+<div id="container-left">
+    <h1>Quick Start a Lesson?</h1>
+
+    <div class="lang-container">
+    {% if language_first.img_name %}
+        {% with 'lesson/images/'|add:language_first.img_name|add:'.png' as image %}
+        <a href="#"><img class="card-img" src="{% static image %}"></a>
+        {% endwith %}
+    {% else %}
+        {% with 'lesson/images/'|add:language_first.language_name|add:'.png' as image %}
+        <a href="#"><img class="card-img" src="{% static image %}"></a>
+        {% endwith %}
+    {% endif %}
+        <div class="lang-content">
+            <h3>{{language_first.language_name}}</h3>
+            <p>Jump in to {{language_first.language_name}} lessons right now!</p>
+            <a href="{% url 'lesson-select-lesson' languageTitle=language_first.language_name %}" class="btn btn-secondary btn-lg" role="button">Start Now</a>
+        </div>
+    </div>
+
+    {% if language_second %}
+    <div class="lang-container">
+    {% if language_second.img_name %}
+        {% with 'lesson/images/'|add:language_second.img_name|add:'.png' as image %}
+        <a href="#"><img class="card-img" src="{% static image %}"></a>
+        {% endwith %}
+    {% else %}
+        {% with 'lesson/images/'|add:language_second.language_name|add:'.png' as image %}
+        <a href="#"><img class="card-img" src="{% static image %}"></a>
+        {% endwith %}
+    {% endif %}
+        <div class="lang-content">
+            <h3>{{language_second.language_name}}</h3>
+            <p>Jump in to {{language_second.language_name}} lessons right now!</p>
+            <a href="{% url 'lesson-select-lesson' languageTitle=language_second.language_name %}" class="btn btn-secondary btn-lg" role="button">Start Now</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+<div id="container-right">
+    <h1>Let us know what you think</h1>
+    <div id="improvement-container">
+        <p>Help us improve this service by sending us feedback!</p>
+        <form method='post'>
+        {% csrf_token %}
+        <textarea id="feedback" name=feedback placeholder="Enter your feedback here"></textarea>
+        <button id="send-feedback" class="btn btn-info" type="submit">Send Feedback</button>
+        </form>
+    </div>
+</div>
+</div>
 {% endblock %}

@@ -1,17 +1,37 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from classroom_main import services
+from lesson import services as lessonServices
 from user.forms import AvgRegisterForm, AcademicRegisterForm
+
 
 # @login_required decorator used on views that should not be accessed without being logged in
 
 @login_required
 def home(request):
     """ View for mainsite homepage """
-    context = {
-        
-    }
+    context = {}
+    if request.method == "POST":
+        if(request.POST.get('feedback')):
+            feedback = request.POST.get('feedback')
+            services.send_new_email(feedback)
+            messages.success(request, f"Your feedback has been sent. Thanks for helping improve our service!")
+            return redirect('classroom-home')
+
+    languages = lessonServices.get_all_languages()
+
+    for language in languages:
+        if(' ' in language.language_name):
+            # Remove spaces in the language name and store it as img_name - This is used as the name for language icons in the view
+            language.img_name = language.language_name.replace(" ","")
+
+    context['language_first'] = languages[0]
+    if(len(languages) > 1):
+        context['language_second'] = languages[1]
+
+
     return render(request, 'classroom_main/home.html', context)
     
 def login(request):

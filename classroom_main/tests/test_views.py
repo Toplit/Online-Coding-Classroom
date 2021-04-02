@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from user.models import User
+from lesson.models import Language, ProgrammingEnvironment
 from django.test import TestCase, Client
 from django.urls import reverse
 
@@ -10,6 +11,10 @@ class TestViews(TestCase):
         self.username = "Testing@Email.com"
         self.password = "TestingPassword"
         self.user = get_user_model().objects.create_user("Testing@Email.com", "Test", "TEACHER", "Tester", "Testing", "TestingPassword")
+        self.environment = ProgrammingEnvironment(environment_name="Web Applications", description="Test Description")
+        self.environment.save()
+        self.language = Language(language_name="JavaScript", description="Test Description", environment=self.environment)
+        self.language.save()
         pass
 
     def login_client(self):

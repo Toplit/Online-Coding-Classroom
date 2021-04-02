@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.core.mail import send_mail
 
 def createNewAcademicUser(form):
     # Retrieve and clean data from each form field
@@ -23,3 +24,8 @@ def createNewUser(form):
 
     # Create the user and save it to the database
     get_user_model().objects.create_user(email, username, role, first_name, last_name, password)
+
+
+def send_new_email(feedback):
+    """ Function for sending feedback email """
+    send_mail("Feedback", feedback, "jordan.stenner@students.plymouth.ac.uk", ["jordan.stenner@students.plymouth.ac.uk"])

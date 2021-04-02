@@ -1,4 +1,5 @@
 from django.test import TestCase, Client
+from django.core import mail
 from classroom_main import services
 from user.forms import AvgRegisterForm, AcademicRegisterForm
 from django.contrib.auth import get_user_model
@@ -21,6 +22,7 @@ class TestServices(TestCase):
                                           'last_name' : 'TesterSurname',
                                           'password1' : 'TestPassword',
                                           'password2' : 'TestPassword'})
+        pass
 
     def test_createNewUser(self):
         """ Method for testing the createNewUser method """
@@ -44,3 +46,8 @@ class TestServices(TestCase):
         self.assertTrue(newUser[0].is_staff)
         self.assertIsInstance(newUser[0], User)
         
+    def test_send_new_mail(self):
+        feedback = "Test email content"
+        services.send_new_email(feedback)
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, "Feedback")

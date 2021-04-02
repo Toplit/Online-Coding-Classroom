@@ -58,6 +58,12 @@ function variable_exercise(){
 
         self.assertEqual(testLanguage[0].language_name, self.language.language_name)
 
+    def test_get_all_languages(self):
+        """ Method to test the 'get_all_languages' function """
+        testLanguages = services.get_all_languages()
+
+        self.assertEqual(testLanguages[0].language_name, self.language.language_name)
+
     def test_language_lesson(self):
         """ Method to test the 'get_language_lesson' function """
         testLesson = services.get_language_lesson(self.language.language_name, self.lesson.lesson_title)
