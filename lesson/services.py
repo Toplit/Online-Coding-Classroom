@@ -6,6 +6,7 @@ from RestrictedPython import compile_restricted, safe_globals
 from RestrictedPython.Eval import default_guarded_getiter
 from RestrictedPython.Guards import guarded_iter_unpack_sequence
 from lesson.models import Lesson, Language
+from classroom_main.models import Progress
 
 ### This Python module stores all functions used by views.py - Includes database calls and functions for code compilation
 
@@ -23,6 +24,9 @@ def get_lessons(languageName):
 def get_languages(envName):
     """ Function for getting languages using environment name """
     return Language.objects.filter(environment__environment_name__iexact=envName)
+
+def get_lesson_progress(lessonTitle, languageTitle, username):
+    return Progress.objects.filter(lesson__lesson_title__iexact=lessonTitle).filter(lesson__language__language_name=languageTitle).filter(user__username__iexact=username)
 
 def get_all_languages():
     """ Function for getting all languages """

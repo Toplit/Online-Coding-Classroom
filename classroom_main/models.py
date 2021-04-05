@@ -22,7 +22,7 @@ class Progress(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.PROTECT)                    
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     completed = models.BooleanField(default=False)
-    grade = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
+    #grade = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
     
     def __str__(self):
         return self.user

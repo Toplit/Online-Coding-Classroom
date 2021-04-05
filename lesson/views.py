@@ -2,6 +2,7 @@ import html
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
+from classroom_main.models import Progress
 from lesson.models import Lesson, ProgrammingEnvironment
 from lesson import services
 
@@ -52,6 +53,17 @@ def select_lesson(request, languageTitle):
     languageLessons = services.get_lessons(languageTitle)
     context['lessons'] = languageLessons
     context['languageName'] = languageTitle
+
+    for lesson in context['lessons']:
+        lessonProgress = services.get_lesson_progress(lesson.lesson_title, languageTitle, request.user.username)
+
+        if not lessonProgress and lesson.lesson_number != 1:
+            lesson.enabled = False
+        elif not lessonProgress and lesson.lesson_number == 1:
+            lesson.enabled = True
+        else:
+            lesson.enabled = True
+
 
     return render(request, 'lesson/select_lesson.html', context)
 
