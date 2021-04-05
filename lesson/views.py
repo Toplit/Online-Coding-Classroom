@@ -81,14 +81,14 @@ def lesson(request, languageTitle, lessonTitle):
     context['lesson'] = selectedLesson[0]
     context['language'] = languageTitle.lower()
     # If there is not a next lesson, pass a 'completed' variable to the view instead
-    try:
-        context['nextLesson'] = nextLesson[0].lesson_title
-    except IndexError:
+    if not nextLesson:
         context['completed'] = True
+    else:
+        context['nextLesson'] = nextLesson[0].lesson_title
 
     return render(request, 'lesson/lesson_base.html', context) 
 
-
+@login_required
 def next_lesson(request, languageTitle, currentLessonTitle, nextLessonTitle):
     progress = services.get_lesson_progress(currentLessonTitle, languageTitle, request.user.username)
 

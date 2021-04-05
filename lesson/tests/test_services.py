@@ -1,4 +1,5 @@
 from lesson.models import ProgrammingEnvironment, Lesson, Language
+from classroom_main.models import Progress
 from lesson import services
 from django.contrib.auth import get_user_model
 from django.test import TestCase, Client, RequestFactory
@@ -58,6 +59,23 @@ function variable_exercise(){
 
         self.assertEqual(testLanguage[0].language_name, self.language.language_name)
 
+    def test_get_lesson_progress(self):
+        """ Method to test the 'get_lesson_progress' function """
+        testProgress = Progress(lesson = self.lesson, user = self.user, completed = True)
+        testProgress.save()
+
+        progress = services.get_lesson_progress(self.lesson.lesson_title, self.language.language_name, self.user.username)[0]
+
+        self.assertTrue(progress.completed)
+        self.assertEqual(progress.lesson.lesson_title, self.lesson.lesson_title)
+
+    def test_get_lesson_by_number(self):
+        """ Method to test the 'get_lesson_by_number' function """
+        testLesson = services.get_lesson_by_number(self.language.language_name, 1)[0]
+
+        self.assertEqual(testLesson, self.lesson)
+        self.assertEqual(testLesson.lesson_number, self.lesson.lesson_number)
+
     def test_get_all_languages(self):
         """ Method to test the 'get_all_languages' function """
         testLanguages = services.get_all_languages()
@@ -75,6 +93,24 @@ function variable_exercise(){
         testLanguage = services.get_single_language(self.language.language_name)
 
         self.assertEqual(testLanguage[0].language_name, self.language.language_name)
+
+    def test_check_lesson_enabled_valid(self):
+        """ Method to test the 'check_lesson_enabled' function for a valid lesson """
+        testProgress = Progress(lesson = self.lesson, user = self.user, completed = True)
+        testProgress.save()
+
+        testEnabled = services.check_lesson_enabled(self.language.language_name, self.lesson.lesson_title, self.user.username)
+
+        self.assertTrue(testEnabled)
+
+    def test_check_lesson_enabled_invalid(self):
+        """ Method to test the 'check_lesson_enabled' function for a invalid lesson """
+        testProgress = Progress(lesson = self.lesson, user = self.user, completed = True)
+        testProgress.save()
+
+        testEnabled = services.check_lesson_enabled(self.language.language_name, "Fake Lesson", self.user.username)
+
+        self.assertFalse(testEnabled)
 
     def test_compile_javascript_code(self):
         """ Method to test the 'compile_javascript_code' method """

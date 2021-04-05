@@ -26,9 +26,11 @@ def get_languages(envName):
     return Language.objects.filter(environment__environment_name__iexact=envName)
 
 def get_lesson_progress(lessonTitle, languageTitle, username):
+    """ Function for getting lesson progress """
     return Progress.objects.filter(lesson__lesson_title__iexact=lessonTitle).filter(lesson__language__language_name__iexact=languageTitle).filter(user__username__iexact=username)
 
 def get_lesson_by_number(languageTitle, lessonNum):
+    """ Function for getting a lesson using the language and lesson number """
     return Lesson.objects.filter(language__language_name__iexact=languageTitle).filter(lesson_number=lessonNum)
 
 def get_all_languages():

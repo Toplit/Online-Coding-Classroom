@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from lesson.models import ProgrammingEnvironment, Language, Lesson
+from classroom_main.models import Progress
 from django.test import TestCase, Client, RequestFactory
 from django.urls import reverse
 from lesson.views import compile_code
@@ -92,6 +93,22 @@ function variable_exercise(){
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "lesson/lesson_base.html")
         self.assertInHTML(self.lesson.lesson_code, response.content.decode())
+
+    def test_next_lesson(self):
+        """ Method used to test the 'next_lesson' function """
+        nextLesson = Lesson(language=self.language, lesson_title="Conditionals", lesson_description="Test Description",
+                                lesson_content="Test content", check_result="function check_result(result)\{\}", lesson_number=2,
+                                lesson_code="""test""")
+        nextLesson.save()
+        self.login_client()
+        response = self.client.get(reverse("lesson-next-lesson", kwargs={"languageTitle": self.language.language_name, "currentLessonTitle":self.lesson.lesson_title, "nextLessonTitle": nextLesson.lesson_title}), follow=True)
+
+        newProgress = Progress.objects.filter(lesson__lesson_title=self.lesson.lesson_title)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "lesson/lesson_base.html")
+        self.assertInHTML(nextLesson.lesson_title, response.content.decode())
+        self.assertIsNotNone(newProgress)
 
     def test_compile_code_JS(self):
         """ Method to test the 'compile_code' function for JavaScript """
