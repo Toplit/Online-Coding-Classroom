@@ -99,9 +99,6 @@ def next_lesson(request, languageTitle, currentLessonTitle, nextLessonTitle):
 
     return redirect(reverse('lesson-lesson-specific', kwargs={"languageTitle": languageTitle, "lessonTitle": nextLessonTitle}))
 
-
-
-
 def language_complete(request, languageTitle):
     context = {}
     context['language'] = services.get_single_language(languageTitle)[0]
