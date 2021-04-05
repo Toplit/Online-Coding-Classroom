@@ -25,7 +25,7 @@ class Progress(models.Model):
     #grade = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
     
     def __str__(self):
-        return self.user
+        return self.user.username + " | " + self.lesson.lesson_title
 
 # Awards model for assigning awards to user accounts - Not within MVP
 class Awards(models.Model):

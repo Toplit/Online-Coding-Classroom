@@ -26,7 +26,10 @@ def get_languages(envName):
     return Language.objects.filter(environment__environment_name__iexact=envName)
 
 def get_lesson_progress(lessonTitle, languageTitle, username):
-    return Progress.objects.filter(lesson__lesson_title__iexact=lessonTitle).filter(lesson__language__language_name=languageTitle).filter(user__username__iexact=username)
+    return Progress.objects.filter(lesson__lesson_title__iexact=lessonTitle).filter(lesson__language__language_name__iexact=languageTitle).filter(user__username__iexact=username)
+
+def get_lesson_by_number(languageTitle, lessonNum):
+    return Lesson.objects.filter(language__language_name__iexact=languageTitle).filter(lesson_number=lessonNum)
 
 def get_all_languages():
     """ Function for getting all languages """
@@ -39,6 +42,26 @@ def get_language_lesson(languageName, lessonTitle):
 def get_single_language(languageName):
     """ Function for getting a single language using language name """
     return Language.objects.filter(language_name__iexact=languageName)
+
+def check_lesson_enabled(languageTitle, lessonTitle, username):
+    """ Function for checking if the lesson can be accessed """
+    enabled = True
+    lesson = get_language_lesson(languageTitle, lessonTitle)
+    
+    if not lesson:
+        enabled = False
+    elif lesson[0].lesson_number == 1:
+        enabled = True
+    elif lesson[0].lesson_number > 1:
+        lesson = get_lesson_by_number(languageTitle, lesson[0].lesson_number-1)[0]
+        prevProgress = get_lesson_progress(lesson.lesson_title, languageTitle, username)
+
+        if not prevProgress:
+            enabled =  False
+    else:
+        enabled = False
+
+    return enabled
 
 def compile_web_code(request):
     """ Function to outputing HTML to view """

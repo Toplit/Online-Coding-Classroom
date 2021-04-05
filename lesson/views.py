@@ -1,5 +1,6 @@
 import html
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
 from classroom_main.models import Progress
@@ -55,15 +56,10 @@ def select_lesson(request, languageTitle):
     context['languageName'] = languageTitle
 
     for lesson in context['lessons']:
-        lessonProgress = services.get_lesson_progress(lesson.lesson_title, languageTitle, request.user.username)
-
-        if not lessonProgress and lesson.lesson_number != 1:
-            lesson.enabled = False
-        elif not lessonProgress and lesson.lesson_number == 1:
+        if services.check_lesson_enabled(languageTitle, lesson.lesson_title, request.user.username) == True:
             lesson.enabled = True
         else:
-            lesson.enabled = True
-
+            lesson.enabled = False
 
     return render(request, 'lesson/select_lesson.html', context)
 
@@ -71,13 +67,16 @@ def select_lesson(request, languageTitle):
 def lesson(request, languageTitle, lessonTitle):
     """ View for the lesson itself """
     context = {}
+    if services.check_lesson_enabled(languageTitle, lessonTitle, request.user.username) == False:
+        return redirect('classroom-home')
+
     # Get the selected lesson data
     selectedLesson = services.get_language_lesson(languageTitle, lessonTitle)
     # Retrieve the lesson number 
     lessonNum = selectedLesson[0].lesson_number
     # Increment the number by one and use this to retrieve the next lesson
     lessonNum += 1
-    nextLesson = Lesson.objects.filter(lesson_number__exact=lessonNum) 
+    nextLesson = services.get_lesson_by_number(languageTitle, lessonNum)
 
     context['lesson'] = selectedLesson[0]
     context['language'] = languageTitle.lower()
@@ -88,6 +87,20 @@ def lesson(request, languageTitle, lessonTitle):
         context['completed'] = True
 
     return render(request, 'lesson/lesson_base.html', context) 
+
+
+def next_lesson(request, languageTitle, currentLessonTitle, nextLessonTitle):
+    progress = services.get_lesson_progress(currentLessonTitle, languageTitle, request.user.username)
+
+    if not progress:
+        currentLesson = services.get_language_lesson(languageTitle, currentLessonTitle)
+        newProgress = Progress(lesson = currentLesson[0], user = request.user, completed = True)
+        newProgress.save()
+
+    return redirect(reverse('lesson-lesson-specific', kwargs={"languageTitle": languageTitle, "lessonTitle": nextLessonTitle}))
+
+
+
 
 def language_complete(request, languageTitle):
     context = {}

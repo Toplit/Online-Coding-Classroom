@@ -211,7 +211,7 @@
 				<h4>Lesson Complete!</h4>	
 				<p>Move on to the next lesson!</p>
                 {% if nextLesson %}
-				<a href="{% url 'lesson-lesson-specific' languageTitle=language lessonTitle=nextLesson %}" class="btn btn-success"><span>Next Lesson</span> <i class="material-icons">&#xE5C8;</i></a><!-- This to link to next lesson -->
+				<a href="{% url 'lesson-next-lesson' languageTitle=language currentLessonTitle=lesson.lesson_title nextLessonTitle=nextLesson %}" class="btn btn-success"><span>Next Lesson</span> <i class="material-icons">&#xE5C8;</i></a><!-- This to link to next lesson -->
                 {% else %}
                 <a href="{% url 'lesson-language-complete' languageTitle=language %}" class="btn btn-success"><span>Complete Language</span> <i class="material-icons">&#xE5C8;</i></a>
                 {% endif %}
