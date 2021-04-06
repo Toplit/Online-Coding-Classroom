@@ -1,0 +1,46 @@
+{% extends "classroom_main/base.html" %}
+{% load static %}
+{% block customlinks %}
+<script src="{% static './performance.js' %}"></script>
+<link rel="stylesheet" href="{% static './performance.css' %}"/>
+{% endblock customlinks %}
+{% block content %}
+<div id="container-main">
+    <div id="container-left">
+        <h1>Lesson Progress</h1>
+        {% if no_progress %}
+            <h5>You have not completed any lessons yet</h5>
+        {% endif %}
+        {% for language in languages %}
+        <div class="lang-container">
+        <button type="button" class="collapsible">{{language}}</button>
+        <div class="lang-content">
+                <table id="progress-table">
+                    <tr>
+                        <th>Lesson Title</th>
+                        <th>Status</th>
+                    </tr>
+                {% for specific in progress %}
+                {% if specific.lesson.language.language_name == language %}
+                    <tr>
+                        <td>
+                            {{specific.lesson.lesson_title}}
+                        </td>
+                        <td>
+                        {% if specific.completed == True %}Completed{% else %}Uncompleted{% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+                {% endfor %}
+                </table>
+        </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div id="container-right">
+        <h1>Awards</h1>
+        <br>
+        <h5>Awards functionality not yet implemented</h5>
+    </div>
+</div>
+{% endblock content %}

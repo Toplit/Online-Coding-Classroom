@@ -1,0 +1,115 @@
+#container-main{
+    width: 80%;
+    height: 80%;
+    margin: 0 auto;
+    margin-top: 2%;
+    overflow: hidden;
+}
+
+#container-left{
+    float: left;
+    width: 45%;
+    height: 95%;
+    margin-top: 2%;
+    background-color: rgb(59, 59, 59);
+	box-shadow: 12px 15px 20px 0 rgba(36, 47, 53, 0.3);  
+    overflow: auto;
+    position: relative;
+}
+
+#container-right{
+    float: right;
+    width: 45%;
+    height: 80%;
+    margin-top: 5%;
+    background-color: rgb(59, 59, 59);
+	box-shadow: 12px 15px 20px 0 rgba(36, 47, 53, 0.3);  
+}
+
+#container-left h1, h5{
+    color: white;
+    text-align: center;
+    margin-top: 4%;
+    margin-bottom: 5%;
+}
+
+#container-right h1 {
+    color: white;
+    text-align: center;
+    margin-top: 6%;
+    margin-bottom: 5%;
+}
+
+.lang-container {
+    width: 95%;
+    margin: auto;
+    margin-top: 2%;
+    border-top-style: solid;
+    border-top-width: 2px;
+    border-top-color: rgb(95, 95, 95);
+}
+
+.lang-content{
+    color: white;
+    height: 70%;
+    width: 100%;
+    margin-top: 1%;
+
+    display: none;
+    overflow: hidden;
+}
+
+#progress-table {
+    margin: auto;
+    width: 80%;
+}
+
+th {
+    text-align: center;
+}
+
+td {
+    text-align: left;
+}
+
+#progress-table tr:nth-child(even) {
+    background-color: rgb(133, 132, 132);
+}
+  #progress-table tr:nth-child(odd) {
+    background-color: rgb(49, 49, 49);
+}
+
+.lang-content h3 {
+    margin-top: 1%;
+}
+
+.collapsible {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 95%;
+    margin-left: 2%;
+    margin-top: 1%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 20px;
+  }
+
+.collapsible:after {
+    content: '\02795';
+    font-size: 13px;
+    color: white;
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: "\2796";
+}
+
+.active, .collapsible:hover {
+    background-color: #ccc;
+  }
+

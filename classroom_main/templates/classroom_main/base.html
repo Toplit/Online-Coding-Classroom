@@ -29,7 +29,7 @@
                     <a class="nav-link" href="{% url 'classroom-home' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'lesson-select-env' %}">Start a Lesson</a>
+                    <a class="nav-link" href="{% url 'lesson-select-env' %}">Lesson Catalogue</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'classroom-performance-analysis' %}">Performance Analysis</a>
@@ -50,7 +50,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="#">My Account</a>
-                        <a class="dropdown-item" href="#">My Performance</a>
+                        <a class="dropdown-item" href="{% url 'classroom-performance-analysis' %}">My Performance</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item logout" href="{% url 'logout' %}">Log Out</a>
                     </div>

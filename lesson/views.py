@@ -99,10 +99,17 @@ def next_lesson(request, languageTitle, currentLessonTitle, nextLessonTitle):
 
     return redirect(reverse('lesson-lesson-specific', kwargs={"languageTitle": languageTitle, "lessonTitle": nextLessonTitle}))
 
-def language_complete(request, languageTitle):
+def language_complete(request, languageTitle, lessonTitle):
     context = {}
+
+    progress = services.get_lesson_progress(lessonTitle, languageTitle, request.user.username)
+
+    if not progress:
+        currentLesson = services.get_language_lesson(languageTitle, lessonTitle)
+        newProgress = Progress(lesson = currentLesson[0], user = request.user, completed = True)
+        newProgress.save()
+
     context['language'] = services.get_single_language(languageTitle)[0]
-    print(context['language'])
     return render (request, 'lesson/language_complete.html', context)
     
 def compile_code(request):

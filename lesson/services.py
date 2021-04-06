@@ -29,6 +29,9 @@ def get_lesson_progress(lessonTitle, languageTitle, username):
     """ Function for getting lesson progress """
     return Progress.objects.filter(lesson__lesson_title__iexact=lessonTitle).filter(lesson__language__language_name__iexact=languageTitle).filter(user__username__iexact=username)
 
+def get_all_user_progress(username):
+    return Progress.objects.filter(user__username__iexact=username)
+
 def get_lesson_by_number(languageTitle, lessonNum):
     """ Function for getting a lesson using the language and lesson number """
     return Lesson.objects.filter(language__language_name__iexact=languageTitle).filter(lesson_number=lessonNum)

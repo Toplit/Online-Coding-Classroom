@@ -93,5 +93,12 @@ def my_account(request):
 def performance_analysis(request):
     """ View for Performance Analysis page page """
     context = {}
+    progress =  lessonServices.get_all_user_progress(request.user.username)
+    if not progress:
+        context['no_progress'] = True
+    else:
+        languages = progress.values_list('lesson__language__language_name', flat=True).order_by('lesson__language__language_name').distinct()
+        context['progress'] = progress
+        context['languages'] = languages
 
     return render(request, 'classroom_main/performance_analysis.html', context)

@@ -8,6 +8,6 @@ urlpatterns = [
     path('select-lesson/<str:languageTitle>/', views.select_lesson, name="lesson-select-lesson"),           # Url for Select Lesson
     url(r'get_code/$', views.compile_code, name="get_code"),                                                # Url for retrieving user submitted code
     path('lesson/<str:languageTitle>/<str:lessonTitle>/', views.lesson, name="lesson-lesson-specific"),     # Url for lesson page
-    path('lesson/completed/<str:languageTitle>', views.language_complete, name="lesson-language-complete"),
+    path('lesson/completed/<str:languageTitle>/<str:lessonTitle>/', views.language_complete, name="lesson-language-complete"),
     path('lesson/<str:languageTitle>/<str:currentLessonTitle>/<str:nextLessonTitle>/', views.next_lesson, name="lesson-next-lesson"),
 ]
