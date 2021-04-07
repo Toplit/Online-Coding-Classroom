@@ -1,0 +1,61 @@
+{% extends "classroom_main/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block customlinks %}
+<link rel="stylesheet" href="{% static './account.css' %}"/>
+{% endblock customlinks %}
+{% block content %}
+<div id="container-main">
+    <div id="container-left">
+        <h1>Your Account Details</h1>
+        <div id="account-info-container">
+            <div class="row justify-content-center">
+                <div class="col-lg">
+                    <table class="table table-responsive">
+                        <tbody>
+                            <tr>
+                                <th class="col-sm-2">Username</th>
+                                <td>{{user.username}}</td>
+                            </tr>
+                            <tr>
+                                <th class="col-sm-2">Email</th>
+                                <td>{{user.email}}</td>
+                            </tr>
+                            <tr>
+                                <th class="col-sm-2">Name</th>
+                                <td>{{user.first_name}} {{user.last_name}}</td>
+                            </tr>
+                            <tr>
+                                <th class="col-sm-2">Date Joined</th>
+                                <td>{{user.date_joined}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="container-right">
+        <h1>Change Password</h1>
+        <div id="container-form">
+        <form method='post'>
+            {% csrf_token %}
+            {{form|crispy}}
+            <div class="form-group">
+                <button class="btn btn-secondary" type="submit">Change Password</button>
+                {% if error %}
+                <div id="error">
+                {{error}}
+                </div>
+                {% endif %}
+                {% if success %}
+                <div id="success">
+                {{success}}
+                </div>
+                {% endif %}
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

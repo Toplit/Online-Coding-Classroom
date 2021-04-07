@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate
 from classroom_main import services
 from lesson import services as lessonServices
-from user.forms import AvgRegisterForm, AcademicRegisterForm
+from user.forms import AvgRegisterForm, AcademicRegisterForm, PasswordResetForm
 
 
 # @login_required decorator used on views that should not be accessed without being logged in
@@ -86,6 +87,30 @@ def create_account(request, role):
 def my_account(request):
     """ View for My Account page """
     context = {}
+    if(request.method == "POST"):
+        form = PasswordResetForm(request.POST)
+        if form.is_valid():
+            newPassword = form.cleaned_data['new_password']
+            oldPassword = form.cleaned_data['old_password']
+            email = request.user.email
+
+            user = authenticate(username=email, password=oldPassword)
+            if user is None:
+                context = {}
+                context['form'] = form
+                context['error'] = "You have entered the wrong password"
+                return render(request, 'classroom_main/my_account.html', context)
+            else:
+                context = {}
+                user.set_password(newPassword)
+                user.save()
+                context['success'] = "Password changed successfully"
+                context['form'] = PasswordResetForm()
+                return render(request, 'classroom_main/my_account.html', context)
+    else:
+        form = PasswordResetForm()
+
+    context['form'] = form
 
     return render(request, 'classroom_main/my_account.html', context)
 

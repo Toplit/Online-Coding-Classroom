@@ -52,7 +52,9 @@
         <form method='post'>
         {% csrf_token %}
         <textarea id="feedback" name=feedback placeholder="Enter your feedback here"></textarea>
-        <button id="send-feedback" class="btn btn-info" type="submit">Send Feedback</button>
+        <div class="form-group">
+            <button id="send-feedback" class="btn btn-info" type="submit">Send Feedback</button>
+        </div>
         </form>
     </div>
 </div>

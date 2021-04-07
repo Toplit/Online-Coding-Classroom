@@ -1,0 +1,78 @@
+#container-main{
+    width: 80%;
+    height: 80%;
+    margin: 0 auto;
+    margin-top: 2%;
+}
+
+#container-left{
+    float: left;
+    width: 45%;
+    padding: 3%;
+    margin-top: 5%;
+    background-color: rgb(59, 59, 59);
+	box-shadow: 12px 15px 20px 0 rgba(36, 47, 53, 0.3);  
+}
+
+#container-right{
+    float: right;
+    width: 45%;
+    padding: 3%;
+    margin-top: 5%;
+    background-color: rgb(59, 59, 59);
+	box-shadow: 12px 15px 20px 0 rgba(36, 47, 53, 0.3);  
+}
+
+#account-info-container{
+    position: relative;
+    margin: 0 auto;
+    margin-bottom: 10%;
+    width: 85%;
+}
+
+#container-left h1, h5{
+    color: white;
+    text-align: center;
+    margin-bottom: 10%;
+}
+
+#container-right h1 {
+    color: white;
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+#container-form {
+    position: relative;
+    margin: 0 auto;
+    width: 80%;
+    height: 60%;
+}
+
+.requiredField {
+    color: white;
+}
+
+#error {
+    margin-top: 1%;
+    color: red;
+}
+
+#success {
+    margin-top: 1%;
+    color: #05da05;
+}
+
+.table {
+    color: white;
+    position: relative;
+    margin: 0 auto;
+}
+
+.table tbody {
+    margin: 0 auto;
+}
+
+.table td {
+    padding-left: 70px;
+}

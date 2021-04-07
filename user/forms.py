@@ -34,3 +34,17 @@ class AcademicRegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['email', 'username', 'first_name', 'last_name', 'role','password1', 'password2']
+
+class PasswordResetForm(forms.Form):
+    old_password = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'type':'password',
+                                                                                'placeholder':'Enter your old password'}))
+    new_password = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'type':'password',
+                                                                                'placeholder':'Enter your new password'}))               
+    confirm_password = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'type':'password',
+                                                                                'placeholder':'Confirm your new password'}))                                         
+
+    def clean(self):
+        if 'new_password' in self.cleaned_data and 'confirm_password' in self.cleaned_data:
+            if self.cleaned_data['new_password'] != self.cleaned_data['confirm_password']:
+                raise forms.ValidationError("The passwords you have entered do not match")
+        return self.cleaned_data
