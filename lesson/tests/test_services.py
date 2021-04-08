@@ -69,6 +69,17 @@ function variable_exercise(){
         self.assertTrue(progress.completed)
         self.assertEqual(progress.lesson.lesson_title, self.lesson.lesson_title)
 
+    def test_get_all_user_progress(self):
+        """ Method to test the 'get_all_user_progress' function """
+        testProgress = Progress(lesson = self.lesson, user = self.user, completed = True)
+        testProgress.save()
+
+        progress = services.get_all_user_progress(self.user.username)[0]
+
+        self.assertTrue(progress.completed)
+        self.assertEqual(progress.lesson.lesson_title, self.lesson.lesson_title)
+        self.assertEqual(progress.user, self.user)
+
     def test_get_lesson_by_number(self):
         """ Method to test the 'get_lesson_by_number' function """
         testLesson = services.get_lesson_by_number(self.language.language_name, 1)[0]

@@ -90,6 +90,7 @@ def lesson(request, languageTitle, lessonTitle):
 
 @login_required
 def next_lesson(request, languageTitle, currentLessonTitle, nextLessonTitle):
+    """ Function for creating progress documents for completed lessons and redirecting the user to the next lesson """
     progress = services.get_lesson_progress(currentLessonTitle, languageTitle, request.user.username)
 
     if not progress:
@@ -99,6 +100,7 @@ def next_lesson(request, languageTitle, currentLessonTitle, nextLessonTitle):
 
     return redirect(reverse('lesson-lesson-specific', kwargs={"languageTitle": languageTitle, "lessonTitle": nextLessonTitle}))
 
+@login_required
 def language_complete(request, languageTitle, lessonTitle):
     context = {}
 
@@ -112,6 +114,7 @@ def language_complete(request, languageTitle, lessonTitle):
     context['language'] = services.get_single_language(languageTitle)[0]
     return render (request, 'lesson/language_complete.html', context)
     
+
 def compile_code(request):
     """ Function for compiling code based on language"""
     # Retrieve the language from the request

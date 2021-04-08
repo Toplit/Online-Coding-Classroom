@@ -110,6 +110,17 @@ function variable_exercise(){
         self.assertInHTML(nextLesson.lesson_title, response.content.decode())
         self.assertIsNotNone(newProgress)
 
+    def test_language_complete(self):
+        self.login_client()
+        response = self.client.get(reverse("lesson-language-complete", kwargs={'languageTitle':self.language.language_name, 'lessonTitle':self.lesson.lesson_title}))
+
+        newProgress = Progress.objects.filter(lesson__lesson_title=self.lesson.lesson_title)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "lesson/language_complete.html")
+        self.assertInHTML("Language Complete!", response.content.decode())
+        self.assertIsNotNone(newProgress)
+
     def test_compile_code_JS(self):
         """ Method to test the 'compile_code' function for JavaScript """
         factory = RequestFactory()
