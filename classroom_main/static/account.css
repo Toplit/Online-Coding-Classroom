@@ -74,5 +74,30 @@
 }
 
 .table td {
-    padding-left: 70px;
+    padding-left: 1%;
+}
+
+@media only screen and (max-width: 991px) {
+    #container-left h1{
+        font-size: x-large;
+    }
+    
+    #container-right h1 {
+        font-size: x-large;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    #container-right {
+        float: none;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    #container-left {
+        float: none;
+        width: 100%;
+        margin: 0 auto;
+        margin-bottom: 2%;
+    }
 }

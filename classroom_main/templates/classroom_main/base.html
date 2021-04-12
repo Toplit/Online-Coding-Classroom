@@ -21,9 +21,12 @@
     {% endif %}
 </head>
 <body>
-    <nav class="navbar navbar-custom navbar-expand">
+    <nav class="navbar navbar-custom navbar-expand-lg">
         <a class="navbar-brand" href="{% url 'classroom-home' %}"><img id="logo-img" src="{% static 'lesson/images/final-logo-rounded.png' %}"></a>
-        <div class="collapse navbar-collapse order-1">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNav,#collapsingNav2">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse order-1" id="collapsingNav">
             <ul class="navbar-nav mr-auto nav-left">
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'classroom-home' %}">Home</a>
@@ -37,7 +40,7 @@
             </ul>
         </div>
         {% if user.is_authenticated %}
-        <div class="collapse navbar-collapse order-2">
+        <div class="collapse navbar-collapse order-2" id="collapsingNav2">
             <ul class="navbar-nav ml-auto nav-right">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -58,7 +61,7 @@
             </ul>
         </div>
         {% else %}
-        <div class="collapse navbar-collapse order-2">
+        <div class="collapse navbar-collapse order-2" id="collapsingNav2">
             <ul class="navbar-nav ml-auto nav-right">
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">Login</a>

@@ -194,3 +194,48 @@ border-radius: 5px;
 ::-webkit-scrollbar-thumb:hover {
 background: #555; 
 }
+
+@media only screen and (max-width: 1200px), (max-height: 700px) {
+	.container {
+		height: 100%;
+	}
+
+	.container_content {
+		float: right;
+		width: 35%;
+		margin-right: 10%;
+	}
+
+	.CodeMirror {
+		margin-top: 5px;
+		width: 100%;
+	}
+	
+	#button_container {
+		position: absolute;
+		bottom: 0;
+		margin-bottom: 2px;
+	}
+}
+
+@media only screen and (max-width: 466px) {
+	#lesson_description {
+		margin-bottom: 0;
+	}
+
+	.lesson_content_container {
+		height: 40%;
+		font-size: small;
+	}
+}
+
+@media only screen and (max-width: 375px) {
+	#run_code {
+		font-size: small;
+	}
+
+	.lesson_content_container {
+		height: 28%;
+		font-size: small;
+	}
+}

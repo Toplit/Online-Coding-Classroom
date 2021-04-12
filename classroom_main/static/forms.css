@@ -25,3 +25,9 @@
 .error {
     margin-top: 1%;
 }
+
+@media only screen and (max-width: 1150px) {
+    .form-section {
+        width: 80%;
+    }
+}

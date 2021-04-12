@@ -3,7 +3,7 @@
     height: 80%;
     margin: 0 auto;
     margin-top: 2%;
-    overflow: hidden;
+    overflow: auto;
 }
 
 #container-left{
@@ -113,3 +113,25 @@ td {
     background-color: #ccc;
   }
 
+
+@media only screen and (max-width: 481px) {
+    #container-left h1 {
+        font-size: x-large;
+    }
+
+    #container-right h1 {
+        font-size: x-large;
+    }
+
+    #container-right {
+        float: none;
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    #container-left {
+        float: none;
+        width: 90%;
+        margin: 0 auto;
+    }
+}

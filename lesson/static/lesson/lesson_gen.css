@@ -11,3 +11,19 @@
     height: 90%;
     float: left;
 }
+
+@media only screen and (max-width: 1200px), (max-height: 700px) {
+    .container_editor {
+        width: 80%;
+        margin: 0 auto;
+        float: none;
+
+
+    }
+    
+    .container_output {
+        width: 45%;
+        margin-left: 10%;
+    }
+      
+}
