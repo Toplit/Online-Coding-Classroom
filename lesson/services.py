@@ -5,7 +5,7 @@ from node_vm2 import NodeVM
 from RestrictedPython import compile_restricted, safe_globals
 from RestrictedPython.Eval import default_guarded_getiter
 from RestrictedPython.Guards import guarded_iter_unpack_sequence
-from lesson.models import Lesson, Language
+from lesson.models import Lesson, Language, LessonHint
 from classroom_main.models import Progress
 
 ### This Python module stores all functions used by views.py - Includes database calls and functions for code compilation
@@ -47,6 +47,9 @@ def get_language_lesson(languageName, lessonTitle):
 def get_single_language(languageName):
     """ Function for getting a single language using language name """
     return Language.objects.filter(language_name__iexact=languageName)
+
+def get_lesson_hint(lesson):
+    return LessonHint.objects.filter(lesson=lesson)
 
 def check_lesson_enabled(languageTitle, lessonTitle, username):
     """ Function for checking if the lesson can be accessed """

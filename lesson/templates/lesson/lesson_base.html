@@ -177,7 +177,7 @@
             {% if lessonHint.hint_title %}
                 {{ lessonHint.hint_title }}
             {% else %}
-                Lesson Hint Placeholder
+                {{lesson.lesson_title}}
             {% endif %}
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -186,9 +186,9 @@
       </div>
       <div class="modal-body">
         {% if lessonHint.hint_description %}
-            {{ lessonHint.hint_description }}
+            {{ lessonHint.hint_description|linebreaks }}
         {% else %}
-            Hint Description Placeholder
+            This lesson does not yet have hints
         {% endif %}
       </div>
       <div class="modal-footer">

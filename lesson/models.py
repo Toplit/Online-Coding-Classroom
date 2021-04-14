@@ -42,12 +42,12 @@ class Lesson(models.Model):
     lesson_number = models.IntegerField()
 
     def __str__(self):
-        return self.lesson_title
+        return self.language.language_name +": "+self.lesson_title
 
 class LessonHint(models.Model):
     """ Model for Lesson Hints - One Lesson has many LessonHints """
-    hint_title = models.CharField(max_length=15)
-    hint_description = models.TextField(max_length=40)
+    hint_title = models.CharField(max_length=30)
+    hint_description = models.TextField(max_length=300)
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     
     def __str__(self):

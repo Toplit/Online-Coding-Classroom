@@ -78,6 +78,8 @@ def lesson(request, languageTitle, lessonTitle):
     lessonNum += 1
     nextLesson = services.get_lesson_by_number(languageTitle, lessonNum)
 
+
+    context['lessonHint'] = services.get_lesson_hint(selectedLesson[0])[0]
     context['lesson'] = selectedLesson[0]
     context['language'] = languageTitle.lower()
     # If there is not a next lesson, pass a 'completed' variable to the view instead
