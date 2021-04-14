@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from lesson.models import ProgrammingEnvironment, Language, Lesson
+from lesson.models import ProgrammingEnvironment, Language, Lesson, LessonHint
 from classroom_main.models import Progress
 from django.test import TestCase, Client, RequestFactory
 from django.urls import reverse
@@ -35,6 +35,8 @@ function variable_exercise(){
   //Return the variable here
 }""")
         self.lesson.save()
+        self.lessonHint =  LessonHint(lesson=self.lesson, hint_title="Test Hint Title", hint_description="Test hint description")
+        self.lessonHint.save()
 
     def login_client(self):
         """ Method for logging in the client """

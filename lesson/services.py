@@ -49,6 +49,7 @@ def get_single_language(languageName):
     return Language.objects.filter(language_name__iexact=languageName)
 
 def get_lesson_hint(lesson):
+    """ Function for getting a lesson hint for a lesson """
     return LessonHint.objects.filter(lesson=lesson)
 
 def check_lesson_enabled(languageTitle, lessonTitle, username):

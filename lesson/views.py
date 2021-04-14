@@ -77,9 +77,12 @@ def lesson(request, languageTitle, lessonTitle):
     # Increment the number by one and use this to retrieve the next lesson
     lessonNum += 1
     nextLesson = services.get_lesson_by_number(languageTitle, lessonNum)
+    # Get lesson hint
+    lessonHint = services.get_lesson_hint(selectedLesson[0])
+    # If it is not empty, store it in the template context
+    if lessonHint:
+        context['lessonHint'] = lessonHint[0]
 
-
-    context['lessonHint'] = services.get_lesson_hint(selectedLesson[0])[0]
     context['lesson'] = selectedLesson[0]
     context['language'] = languageTitle.lower()
     # If there is not a next lesson, pass a 'completed' variable to the view instead
