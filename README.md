@@ -2,6 +2,8 @@
 ## Project Vision
 For aspiring new developers who need accessible, comprehensive and practical learning material for software development, the Online Coding Classroom is an interactive web application that teaches the fundamentals of programming and programming languages through engaging coding exercises via lessons and exams. 
 
+Access the application using the following link: https://online-coding-classroom.herokuapp.com/
+
 ## Running Locally
 To run this application locally please clone the repository and follow the steps below.
 
